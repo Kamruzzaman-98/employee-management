@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('department_id')->constrained()->onDelete('cascade');
-            $table->string('designation')->nullable();
+            $table->foreignId('designation_id')->nullable()->constrained()->nullOnDelete();
             $table->decimal('salary', 10, 2)->nullable();
             $table->timestamps();
         });
