@@ -21,7 +21,6 @@
 
     <input type="number" name="salary" value="{{ $employee->salary }}"><br><br>
 
-    <!-- Current Image -->
     @if($employee->image)
         <img src="{{ asset('uploads/'.$employee->image) }}" width="80"><br><br>
     @endif

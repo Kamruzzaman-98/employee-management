@@ -93,8 +93,16 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')->with('success', 'Updated successfully');
     }
 
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+
+        if ($employee->image && file_exists(public_path('uploads/' . $employee->image))) {
+            unlink(public_path('uploads/' . $employee->image));
+        }
+
+        $employee->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Deleted successfully');
     }
 }
