@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -21,5 +21,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('departments', DepartmentController::class);
 Route::resource('employees', EmployeeController::class);
+Route::resource('designations', DesignationController::class);
 
 require __DIR__ . '/auth.php';

@@ -15,4 +15,9 @@ class Employee extends Model
         'image',
         'department_id'
     ];
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
+    }
 }
