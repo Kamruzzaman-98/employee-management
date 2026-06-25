@@ -19,6 +19,21 @@
 
         <input type="text" name="phone" value="{{ $employee->phone }}"><br><br>
 
+        <select name="department_id">
+
+            <option value="">
+                Select Department
+            </option>
+
+            @foreach ($departments as $department)
+                <option value="{{ $department->id }}"
+                    {{ $employee->department_id == $department->id ? 'selected' : '' }}>
+                    {{ $department->name }}
+                </option>
+            @endforeach
+
+        </select><br><br>
+
         <select name="designation_id">
 
             <option value="">
@@ -26,7 +41,8 @@
             </option>
 
             @foreach ($designations as $designation)
-                <option value="{{ $designation->id }}">
+                <option value="{{ $designation->id }}"
+                    {{ $employee->designation_id == $designation->id ? 'selected' : '' }}>
                     {{ $designation->name }}
                 </option>
             @endforeach

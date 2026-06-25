@@ -59,8 +59,10 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+        $departments = Department::all();
+        $designations = Designation::all();
         $employee = Employee::findOrFail($id);
-        return view('employees.edit', compact('employee'));
+        return view('employees.edit', compact('employee', 'designations', 'departments'));
     }
 
     public function update(Request $request, $id)
@@ -89,7 +91,8 @@ class EmployeeController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'designation' => $request->designation,
+            'designation_id' => $request->designation_id,
+            'department_id' => $request->department_id,
             'salary' => $request->salary,
             'image' => $imageName,
         ]);
