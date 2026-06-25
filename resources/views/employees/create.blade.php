@@ -7,7 +7,33 @@
 
     <input type="text" name="phone" placeholder="Phone"><br>
 
-    <input type="text" name="designation" placeholder="Designation"><br>
+    <select name="department_id">
+
+        <option value="">
+            Select Department
+        </option>
+
+        @foreach ($departments as $department)
+            <option value="{{ $department->id }}">
+                {{ $department->name }}
+            </option>
+        @endforeach
+
+    </select> <br>
+
+    <select name="designation_id">
+
+        <option value="">
+            Select Designation
+        </option>
+
+        @foreach ($designations as $designation)
+            <option value="{{ $designation->id }}">
+                {{ $designation->name }}
+            </option>
+        @endforeach
+
+    </select> <br>
 
     <input type="number" name="salary" placeholder="Salary"><br>
 

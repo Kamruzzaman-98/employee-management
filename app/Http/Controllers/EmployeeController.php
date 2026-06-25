@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Designation;
 use App\Models\Employee;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -16,7 +18,9 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('employees.create');
+        $departments = Department::all();
+        $designations = Designation::all();
+        return view('employees.create', compact('designations', 'departments'));
     }
 
 
@@ -39,10 +43,10 @@ class EmployeeController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'designation' => $request->designation,
+            'designation_id' => $request->designation_id,
             'salary' => $request->salary,
             'image' => $imageName,
-            'department_id' => 1,
+            'department_id' => $request->department_id,
         ]);
 
         return redirect()->route('employees.index');

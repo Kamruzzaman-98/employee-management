@@ -10,7 +10,7 @@ class Employee extends Model
         'name',
         'email',
         'phone',
-        'designation',
+        'designation_id',
         'salary',
         'image',
         'department_id'
@@ -19,5 +19,10 @@ class Employee extends Model
     public function designation()
     {
         return $this->belongsTo(Designation::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }
