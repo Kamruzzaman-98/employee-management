@@ -16,6 +16,14 @@
             border-radius: 8px;
         }
 
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -43,23 +51,71 @@
             border-radius: 50%;
         }
 
+        /* Buttons */
         .btn {
-            padding: 6px 10px;
+            padding: 8px 14px;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 5px;
             color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-block;
         }
 
         .add-btn {
-            background: green;
+            background: #28a745;
+        }
+
+        .add-btn:hover {
+            background: #218838;
         }
 
         .edit-btn {
-            background: orange;
+            background: #ff9800;
+        }
+
+        .edit-btn:hover {
+            background: #e68900;
         }
 
         .delete-btn {
-            background: red;
+            background: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .filter-form {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-form input,
+        .filter-form select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .filter-btn {
+            background: #007bff;
+        }
+
+        .filter-btn:hover {
+            background: #0069d9;
+        }
+
+        .reset-btn {
+            background: #6c757d;
+        }
+
+        .reset-btn:hover {
+            background: #5a6268;
         }
     </style>
 </head>
@@ -68,9 +124,40 @@
 
     <div class="container">
 
-        <h2>Employee List</h2>
+        <div class="top-bar">
+            <h2>Employee List</h2>
 
-        <a href="{{ route('employees.create') }}" class="btn add-btn">+ Add Employee</a>
+            <a href="{{ route('employees.create') }}" class="btn add-btn">+ Add Employee</a>
+        </div>
+
+        <!-- FILTER SECTION (Added here) -->
+        <form method="GET" action="{{ route('employees.index') }}" class="filter-form">
+
+            <input type="text" name="search" placeholder="Search Name or ID" value="{{ request('search') }}">
+
+            <select name="department_id">
+                <option value="">All Department</option>
+                @foreach ($departments as $dept)
+                    <option value="{{ $dept->id }}" {{ request('department_id') == $dept->id ? 'selected' : '' }}>
+                        {{ $dept->name }}
+                    </option>
+                @endforeach
+            </select>
+
+            <select name="designation_id">
+                <option value="">All Designation</option>
+                @foreach ($designations as $desig)
+                    <option value="{{ $desig->id }}" {{ request('designation_id') == $desig->id ? 'selected' : '' }}>
+                        {{ $desig->name }}
+                    </option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="btn filter-btn">Filter</button>
+
+            <a href="{{ route('employees.index') }}" class="btn reset-btn">Reset</a>
+
+        </form>
 
         <table>
             <thead>

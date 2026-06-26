@@ -10,10 +10,31 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
-        return view('employees.index', compact('employees'));
+        $employees = Employee::with(['department', 'designation'])
+
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('name', 'like', "%{$request->search}%")
+                    ->orWhere('id', 'like', "%{$request->search}%");
+            })
+
+            ->when($request->department_id, function ($query) use ($request) {
+                $query->where('department_id', $request->department_id);
+            })
+
+            ->when($request->designation_id, function ($query) use ($request) {
+                $query->where('designation_id', $request->designation_id);
+            })
+
+            ->latest()
+            ->paginate(10);
+
+        return view('employees.index', [
+            'employees' => $employees,
+            'departments' => Department::all(),
+            'designations' => Designation::all(),
+        ]);
     }
 
     public function create()
