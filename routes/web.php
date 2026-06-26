@@ -24,6 +24,14 @@ Route::middleware('auth')->group(function () {
 Route::resource('departments', DepartmentController::class);
 Route::resource('employees', EmployeeController::class);
 Route::resource('designations', DesignationController::class);
-Route::resource('attendances', AttendanceController::class);
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+
+    Route::post('/attendance/check-in', [AttendanceController::class, 'checkIn'])->name('attendance.checkin');
+
+    Route::post('/attendance/check-out', [AttendanceController::class, 'checkOut'])->name('attendance.checkout');
+});
 
 require __DIR__ . '/auth.php';
