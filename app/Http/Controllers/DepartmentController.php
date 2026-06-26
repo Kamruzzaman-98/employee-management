@@ -40,20 +40,24 @@ class DepartmentController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Department $department)
     {
         return view('departments.edit', compact('department'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Department $department)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $department->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('departments.index');
     }
 
     /**
