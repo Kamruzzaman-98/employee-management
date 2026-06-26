@@ -32,9 +32,7 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Department $department)
     {
         //
@@ -60,11 +58,11 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+
+        return redirect()->route('departments.index');
     }
 }
