@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -49,7 +52,7 @@ class EmployeeController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email|unique:employees,email',
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
@@ -60,17 +63,28 @@ class EmployeeController extends Controller
             $request->image->move(public_path('uploads'), $imageName);
         }
 
-        Employee::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'designation_id' => $request->designation_id,
-            'salary' => $request->salary,
-            'image' => $imageName,
-            'department_id' => $request->department_id,
-        ]);
+        DB::transaction(function () use ($request, $imageName) {
 
-        return redirect()->route('employees.index');
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make('12345678'),
+            ]);
+
+            Employee::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'designation_id' => $request->designation_id,
+                'salary' => $request->salary,
+                'image' => $imageName,
+                'department_id' => $request->department_id,
+            ]);
+        });
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee created successfully.');
     }
 
     public function show(Employee $employee)

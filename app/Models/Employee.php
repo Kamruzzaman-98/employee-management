@@ -8,6 +8,7 @@ class Employee extends Model
 {
     protected $fillable = [
         'name',
+        'user_id',
         'email',
         'phone',
         'designation_id',
@@ -24,5 +25,10 @@ class Employee extends Model
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
