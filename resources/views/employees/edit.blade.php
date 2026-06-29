@@ -12,7 +12,7 @@
         }
 
         .container {
-            width: 600px;
+            width: 650px;
             margin: auto;
             background: #fff;
             padding: 25px;
@@ -33,7 +33,8 @@
         }
 
         input,
-        select {
+        select,
+        textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -67,6 +68,11 @@
         .button-group {
             margin-top: 20px;
         }
+
+        .text-danger {
+            color: red;
+            font-size: 14px;
+        }
     </style>
 
 </head>
@@ -83,13 +89,38 @@
             @method('PUT')
 
             <label>Name</label>
-            <input type="text" name="name" value="{{ $employee->name }}">
+            <input type="text" name="name" value="{{ old('name', $employee->user->name) }}">
+            @error('name')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
 
             <label>Email</label>
-            <input type="email" name="email" value="{{ $employee->email }}">
+            <input type="email" name="email" value="{{ old('email', $employee->user->email) }}">
+            @error('email')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
 
             <label>Phone</label>
-            <input type="text" name="phone" value="{{ $employee->phone }}">
+            <input type="text" name="phone" value="{{ old('phone', $employee->user->phone) }}">
+            @error('phone')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+
+            <label>Gender</label>
+            <select name="gender">
+                <option value="">Select Gender</option>
+                <option value="male" {{ old('gender', $employee->gender) == 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ old('gender', $employee->gender) == 'female' ? 'selected' : '' }}>Female
+                </option>
+                <option value="other" {{ old('gender', $employee->gender) == 'other' ? 'selected' : '' }}>Other
+                </option>
+            </select>
+
+            <label>Date of Birth</label>
+            <input type="date" name="date_of_birth" value="{{ old('date_of_birth', $employee->date_of_birth) }}">
+
+            <label>Address</label>
+            <textarea name="address">{{ old('address', $employee->address) }}</textarea>
 
             <label>Department</label>
             <select name="department_id">
@@ -97,7 +128,7 @@
 
                 @foreach ($departments as $department)
                     <option value="{{ $department->id }}"
-                        {{ $employee->department_id == $department->id ? 'selected' : '' }}>
+                        {{ old('department_id', $employee->department_id) == $department->id ? 'selected' : '' }}>
                         {{ $department->name }}
                     </option>
                 @endforeach
@@ -109,18 +140,31 @@
 
                 @foreach ($designations as $designation)
                     <option value="{{ $designation->id }}"
-                        {{ $employee->designation_id == $designation->id ? 'selected' : '' }}>
+                        {{ old('designation_id', $employee->designation_id) == $designation->id ? 'selected' : '' }}>
                         {{ $designation->name }}
                     </option>
                 @endforeach
             </select>
 
+            <label>Joining Date</label>
+            <input type="date" name="joining_date" value="{{ old('joining_date', $employee->joining_date) }}">
+
             <label>Salary</label>
-            <input type="number" name="salary" value="{{ $employee->salary }}">
+            <input type="number" step="0.01" name="salary" value="{{ old('salary', $employee->salary) }}">
+
+            <label>Status</label>
+            <select name="status">
+                <option value="active" {{ old('status', $employee->status) == 'active' ? 'selected' : '' }}>Active
+                </option>
+                <option value="inactive" {{ old('status', $employee->status) == 'inactive' ? 'selected' : '' }}>
+                    Inactive</option>
+                <option value="terminated" {{ old('status', $employee->status) == 'terminated' ? 'selected' : '' }}>
+                    Terminated</option>
+            </select>
 
             @if ($employee->image)
-                <label>Current Image</label>
-                <img src="{{ asset('uploads/' . $employee->image) }}" width="100">
+                <label>Current Image</label><br>
+                <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="120">
             @endif
 
             <label>Change Image</label>

@@ -141,37 +141,83 @@ class EmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::with('user')->findOrFail($id);
 
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $employee->user_id,
+
+            'phone' => 'nullable|string|max:20',
+
+            'gender' => 'nullable|in:male,female,other',
+            'date_of_birth' => 'nullable|date',
+            'address' => 'nullable|string',
+
+            'department_id' => 'required|exists:departments,id',
+            'designation_id' => 'nullable|exists:designations,id',
+
+            'joining_date' => 'nullable|date',
+            'salary' => 'nullable|numeric|min:0',
+
+            'status' => 'required|in:active,inactive,terminated',
+
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
-        $imageName = $employee->image;
+        DB::beginTransaction();
 
-        if ($request->hasFile('image')) {
+        try {
 
-            if ($employee->image && file_exists(public_path('uploads/' . $employee->image))) {
-                unlink(public_path('uploads/' . $employee->image));
+            $imageName = $employee->image;
+
+            if ($request->hasFile('image')) {
+
+                // Delete old image
+                if (
+                    $employee->image &&
+                    file_exists(public_path('uploads/employees/' . $employee->image))
+                ) {
+                    unlink(public_path('uploads/employees/' . $employee->image));
+                }
+
+                $image = $request->file('image');
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/employees'), $imageName);
             }
 
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('uploads'), $imageName);
+            $employee->user->update([
+                'name'   => $validated['name'],
+                'email'  => $validated['email'],
+                'phone'  => $validated['phone'] ?? null,
+                'status' => $validated['status'],
+            ]);
+
+            $employee->update([
+                'gender'         => $validated['gender'] ?? null,
+                'date_of_birth'  => $validated['date_of_birth'] ?? null,
+                'address'        => $validated['address'] ?? null,
+                'image'          => $imageName,
+
+                'department_id'  => $validated['department_id'],
+                'designation_id' => $validated['designation_id'] ?? null,
+                'joining_date'   => $validated['joining_date'] ?? null,
+                'salary'         => $validated['salary'] ?? null,
+                'status'         => $validated['status'],
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('employees.index')
+                ->with('success', 'Employee updated successfully.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()->withInput()->with(
+                'error',
+                'Something went wrong: ' . $e->getMessage()
+            );
         }
-
-        $employee->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'designation_id' => $request->designation_id,
-            'department_id' => $request->department_id,
-            'salary' => $request->salary,
-            'image' => $imageName,
-        ]);
-
-        return redirect()->route('employees.index')->with('success', 'Updated successfully');
     }
 
     public function destroy($id)
