@@ -17,7 +17,7 @@
             background: #fff;
             padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
         }
 
         h2 {
@@ -76,11 +76,7 @@
 
             <label>Department Name</label>
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Enter Department Name"
-            >
+            <input type="text" name="name" placeholder="Enter Department Name">
 
             <div class="button-group">
 

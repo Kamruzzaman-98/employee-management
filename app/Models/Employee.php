@@ -19,6 +19,7 @@ class Employee extends Model
         'salary',
         'status',
     ];
+    
     public function designation()
     {
         return $this->belongsTo(Designation::class);

@@ -184,7 +184,8 @@
                         <td>{{ $employee->user->name }}</td>
                         <td>
                             @if ($employee->image)
-                                <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="50" height="50">
+                                <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="50"
+                                    height="50">
                             @else
                                 N/A
                             @endif
