@@ -15,11 +15,13 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-        $employees = Employee::with(['department', 'designation'])
+        $employees = Employee::with(['department', 'designation', 'user'])
 
             ->when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', "%{$request->search}%")
-                    ->orWhere('id', 'like', "%{$request->search}%");
+                $query->whereHas('user', function ($user) use ($request) {
+                    $user->where('name', 'like', "%{$request->search}%")
+                        ->orWhere('employee_code', 'like', "%{$request->search}%");
+                });
             })
 
             ->when($request->department_id, function ($query) use ($request) {
