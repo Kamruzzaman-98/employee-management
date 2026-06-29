@@ -132,7 +132,7 @@
 
         <form method="GET" action="{{ route('employees.index') }}" class="filter-form">
 
-            <input type="text" name="search" placeholder="Search Name or ID" value="{{ request('search') }}">
+            <input type="text" name="search" placeholder="Search Name or Code" value="{{ request('search') }}">
 
             <select name="department_id">
                 <option value="">All Department</option>
@@ -161,14 +161,18 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Image</th>
+                    <th>Code</th>
                     <th>Name</th>
+                    <th>Image</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Address</th>
                     <th>Department</th>
                     <th>Designation</th>
                     <th>Salary</th>
+                    <th>DOB</th>
+                    <th>Joining Date</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -176,8 +180,8 @@
             <tbody>
                 @foreach ($employees as $employee)
                     <tr>
-                        <td>{{ $employee->id }}</td>
-
+                        <td>{{ $employee->employee_code }}</td>
+                        <td>{{ $employee->user->name }}</td>
                         <td>
                             @if ($employee->image)
                                 <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="50" height="50">
@@ -186,12 +190,15 @@
                             @endif
                         </td>
 
-                        <td>{{ $employee->user->name }}</td>
                         <td>{{ $employee->user->email }}</td>
                         <td>{{ $employee->user->phone }}</td>
+                        <td>{{ $employee->address }}</td>
                         <td>{{ $employee->department->name }}</td>
                         <td>{{ $employee->designation->name }}</td>
                         <td>{{ $employee->salary }}</td>
+                        <td>{{ $employee->date_of_birth }}</td>
+                        <td>{{ $employee->joining_date }}</td>
+                        <td>{{ $employee->status }}</td>
 
                         <td>
                             <a href="{{ route('employees.edit', $employee->id) }}" class="btn edit-btn">Edit</a>
