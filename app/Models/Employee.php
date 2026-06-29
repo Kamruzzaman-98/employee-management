@@ -7,16 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $fillable = [
-        'name',
         'user_id',
-        'email',
-        'phone',
-        'designation_id',
-        'salary',
+        'employee_code',
+        'gender',
+        'date_of_birth',
+        'address',
         'image',
-        'department_id'
+        'department_id',
+        'designation_id',
+        'joining_date',
+        'salary',
+        'status',
     ];
-
     public function designation()
     {
         return $this->belongsTo(Designation::class);

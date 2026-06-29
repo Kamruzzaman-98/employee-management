@@ -12,12 +12,12 @@
         }
 
         .container {
-            width: 600px;
+            width: 700px;
             margin: auto;
             background: #fff;
             padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
         }
 
         h2 {
@@ -33,7 +33,8 @@
         }
 
         input,
-        select {
+        select,
+        textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -62,6 +63,19 @@
         .button-group {
             margin-top: 20px;
         }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .row>div {
+            flex: 1;
+        }
+
+        .req {
+            color: red;
+        }
     </style>
 
 </head>
@@ -75,17 +89,42 @@
         <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Enter Name">
+            <label>Full Name <span class="req">*</span></label>
+            <input type="text" name="name" placeholder="Enter Full Name" required>
 
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Enter Email">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" name="email" placeholder="Enter Email" required>
 
             <label>Phone</label>
             <input type="text" name="phone" placeholder="Enter Phone">
 
-            <label>Department</label>
-            <select name="department_id">
+            <label>Gender</label>
+            <select name="gender">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <div class="row">
+
+                <div>
+                    <label>Date of Birth</label>
+                    <input type="date" name="date_of_birth">
+                </div>
+
+                <div>
+                    <label>Joining Date</label>
+                    <input type="date" name="joining_date">
+                </div>
+
+            </div>
+
+            <label>Address</label>
+            <textarea name="address" placeholder="Enter Address"></textarea>
+
+            <label>Department <span class="req">*</span></label>
+            <select name="department_id" required>
                 <option value="">Select Department</option>
 
                 @foreach ($departments as $department)
@@ -111,6 +150,13 @@
 
             <label>Employee Image</label>
             <input type="file" name="image">
+
+            <label>Status <span class="req">*</span></label>
+            <select name="status" required>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="terminated">Terminated</option>
+            </select>
 
             <div class="button-group">
                 <button type="submit" class="btn save-btn">Save Employee</button>

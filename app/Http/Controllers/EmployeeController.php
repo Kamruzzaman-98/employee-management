@@ -50,41 +50,77 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email|unique:employees,email',
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+
+            'phone' => 'nullable|string|max:20',
+
+            'gender' => 'nullable|in:male,female,other',
+            'date_of_birth' => 'nullable|date',
+            'address' => 'nullable|string',
+
+            'department_id' => 'required|exists:departments,id',
+            'designation_id' => 'nullable|exists:designations,id',
+
+            'joining_date' => 'nullable|date',
+            'salary' => 'nullable|numeric|min:0',
+
+            'status' => 'required|in:active,inactive,terminated',
+
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
-        $imageName = null;
+        DB::beginTransaction();
 
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('uploads'), $imageName);
-        }
+        try {
 
-        DB::transaction(function () use ($request, $imageName) {
+            $imageName = null;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/employees'), $imageName);
+            }
 
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
+                'name' => $validated['name'],
+                'email' => $validated['email'],
                 'password' => Hash::make('12345678'),
+                'status' => 'active',
             ]);
+
+
+            $user->assignRole('employee');
 
             Employee::create([
                 'user_id' => $user->id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'designation_id' => $request->designation_id,
-                'salary' => $request->salary,
-                'image' => $imageName,
-                'department_id' => $request->department_id,
-            ]);
-        });
 
-        return redirect()->route('employees.index')
-            ->with('success', 'Employee created successfully.');
+                'employee_code' => 'EMP' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
+
+                'gender' => $validated['gender'] ?? null,
+                'date_of_birth' => $validated['date_of_birth'] ?? null,
+                'address' => $validated['address'] ?? null,
+                'image' => $imageName,
+
+                'department_id' => $validated['department_id'],
+                'designation_id' => $validated['designation_id'] ?? null,
+                'joining_date' => $validated['joining_date'] ?? null,
+                'salary' => $validated['salary'] ?? null,
+                'status' => $validated['status'],
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('employees.index')
+                ->with('success', 'Employee created successfully.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
     }
 
     public function show(Employee $employee)
