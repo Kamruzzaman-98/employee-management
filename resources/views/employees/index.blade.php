@@ -130,7 +130,6 @@
             <a href="{{ route('employees.create') }}" class="btn add-btn">+ Add Employee</a>
         </div>
 
-        <!-- FILTER SECTION (Added here) -->
         <form method="GET" action="{{ route('employees.index') }}" class="filter-form">
 
             <input type="text" name="search" placeholder="Search Name or ID" value="{{ request('search') }}">
@@ -187,9 +186,9 @@
                             @endif
                         </td>
 
-                        <td>{{ $employee->name }}</td>
-                        <td>{{ $employee->email }}</td>
-                        <td>{{ $employee->phone }}</td>
+                        <td>{{ $employee->user->name }}</td>
+                        <td>{{ $employee->user->email }}</td>
+                        <td>{{ $employee->user->phone }}</td>
                         <td>{{ $employee->department->name }}</td>
                         <td>{{ $employee->designation->name }}</td>
                         <td>{{ $employee->salary }}</td>

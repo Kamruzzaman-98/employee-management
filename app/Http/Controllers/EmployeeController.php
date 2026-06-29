@@ -87,6 +87,7 @@ class EmployeeController extends Controller
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'phone' => $validated['phone'],
                 'password' => Hash::make('12345678'),
                 'status' => 'active',
             ]);

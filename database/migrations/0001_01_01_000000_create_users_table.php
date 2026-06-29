@@ -13,16 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-
-            // login identity
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
-
-            // optional contact (if needed for login/account)
             $table->string('phone')->nullable();
-
-            // account status
+            $table->string('password');
             $table->enum('status', ['active', 'inactive'])->default('active');
 
             $table->timestamp('email_verified_at')->nullable();
