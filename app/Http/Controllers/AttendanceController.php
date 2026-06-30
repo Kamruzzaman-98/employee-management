@@ -9,7 +9,13 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-        return view('attendances.index');
+        $employee = auth()->user()->employee;
+
+        $attendances = Attendance::where('employee_id', $employee->id)
+            ->latest('attendance_date')
+            ->paginate(20);
+
+        return view('attendances.index', compact('attendances'));
     }
 
     public function checkIn()
