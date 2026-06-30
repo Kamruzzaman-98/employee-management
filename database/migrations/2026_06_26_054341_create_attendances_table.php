@@ -11,15 +11,34 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
+            $table->foreignId('employee_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-            $table->date('date');
-            $table->time('check_in')->nullable();
-            $table->time('check_out')->nullable();
+            $table->date('attendance_date');
 
-            $table->string('status')->default('present');
+            $table->dateTime('check_in')->nullable();
+            $table->dateTime('check_out')->nullable();
+
+            $table->integer('working_minutes')->default(0);
+            $table->integer('late_minutes')->default(0);
+            $table->integer('overtime_minutes')->default(0);
+
+            $table->enum('status', [
+                'present',
+                'late',
+                'absent',
+                'leave',
+                'holiday',
+                'weekend',
+                'half_day'
+            ])->default('present');
+
+            $table->text('remarks')->nullable();
 
             $table->timestamps();
+
+            $table->unique(['employee_id', 'attendance_date']);
         });
     }
 
