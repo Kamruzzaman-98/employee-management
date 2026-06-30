@@ -27,7 +27,7 @@ class AttendanceController extends Controller
             ->whereDate('attendance_date', today())
             ->first();
 
-        return view('attendance.create', compact('todayAttendance'));
+        return view('attendances.create', compact('todayAttendance'));
     }
 
     public function checkIn()
