@@ -19,6 +19,17 @@ class AttendanceController extends Controller
         return view('attendances.index', compact('attendances'));
     }
 
+    public function create()
+    {
+        $employee = auth()->user()->employee;
+
+        $todayAttendance = Attendance::where('employee_id', $employee->id)
+            ->whereDate('attendance_date', today())
+            ->first();
+
+        return view('attendance.create', compact('todayAttendance'));
+    }
+
     public function checkIn()
     {
         $employee = auth()->user()->employee;
