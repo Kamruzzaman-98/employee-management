@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -20,25 +21,46 @@ class AttendanceController extends Controller
 
     public function checkIn()
     {
-        $employeeId = auth()->user()->employee->id;
-        $today = date('Y-m-d');
+        $employee = auth()->user()->employee;
 
-        $attendance = Attendance::where('employee_id', $employeeId)
-            ->where('date', $today)
+        $today = Carbon::today();
+
+        $attendance = Attendance::where('employee_id', $employee->id)
+            ->whereDate('attendance_date', $today)
             ->first();
 
         if ($attendance) {
-            return back()->with('error', 'Already checked in today');
+            return back()->with('error', 'Already checked in.');
+        }
+
+        $officeStart = Carbon::today()->setTime(9, 0);
+
+        $now = now();
+
+        $late = 0;
+
+        $status = 'present';
+
+        if ($now->greaterThan($officeStart)) {
+            $late = $officeStart->diffInMinutes($now);
+            $status = 'late';
         }
 
         Attendance::create([
-            'employee_id' => $employeeId,
-            'date' => $today,
-            'check_in' => now()->format('H:i:s'),
-            'status' => 'present'
+
+            'employee_id' => $employee->id,
+
+            'attendance_date' => $today,
+
+            'check_in' => $now,
+
+            'late_minutes' => $late,
+
+            'status' => $status,
+
         ]);
 
-        return back()->with('success', 'Checked in successfully');
+        return back()->with('success', 'Check In Successful.');
     }
 
     public function checkOut()
