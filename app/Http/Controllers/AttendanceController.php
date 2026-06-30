@@ -65,25 +65,33 @@ class AttendanceController extends Controller
 
     public function checkOut()
     {
-        $employeeId = auth()->user()->employee->id;
-        $today = date('Y-m-d');
+        $employee = auth()->user()->employee;
 
-        $attendance = Attendance::where('employee_id', $employeeId)
-            ->where('date', $today)
+        $attendance = Attendance::where('employee_id', $employee->id)
+            ->whereDate('attendance_date', today())
             ->first();
 
         if (!$attendance) {
-            return back()->with('error', 'Please check in first');
+            return back()->with('error', 'Please check in first.');
         }
 
         if ($attendance->check_out) {
-            return back()->with('error', 'Already checked out');
+            return back()->with('error', 'Already checked out.');
         }
 
-        $attendance->update([
-            'check_out' => now()->format('H:i:s')
-        ]);
+        $attendance->check_out = now();
 
-        return back()->with('success', 'Checked out successfully');
+        $minutes = Carbon::parse($attendance->check_in)
+            ->diffInMinutes(now());
+
+        $attendance->working_minutes = $minutes;
+
+        if ($minutes > 540) {
+            $attendance->overtime_minutes = $minutes - 540;
+        }
+
+        $attendance->save();
+
+        return back()->with('success', 'Check Out Successful.');
     }
 }
