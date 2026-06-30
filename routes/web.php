@@ -25,7 +25,7 @@ Route::resource('departments', DepartmentController::class);
 Route::resource('employees', EmployeeController::class);
 Route::resource('designations', DesignationController::class);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
 

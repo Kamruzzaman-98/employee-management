@@ -1,77 +1,36 @@
-<!DOCTYPE html>
-<html>
+<table class="table">
 
-<head>
-    <title>Attendance</title>
+<tr>
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+<th>Date</th>
+<th>Check In</th>
+<th>Check Out</th>
+<th>Working</th>
+<th>Late</th>
+<th>Status</th>
 
-        .container {
-            width: 500px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-            text-align: center;
-        }
+</tr>
 
-        h2 {
-            margin-bottom: 20px;
-        }
+@foreach($attendances as $attendance)
 
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            margin: 10px;
-            font-size: 14px;
-        }
+<tr>
 
-        .checkin-btn {
-            background: green;
-        }
+<td>{{ $attendance->attendance_date->format('d M Y') }}</td>
 
-        .checkout-btn {
-            background: red;
-        }
+<td>{{ optional($attendance->check_in)->format('h:i A') }}</td>
 
-        form {
-            display: inline-block;
-        }
-    </style>
+<td>{{ optional($attendance->check_out)->format('h:i A') }}</td>
 
-</head>
+<td>{{ $attendance->working_minutes }} Min</td>
 
-<body>
+<td>{{ $attendance->late_minutes }} Min</td>
 
-    <div class="container">
+<td>{{ ucfirst($attendance->status) }}</td>
 
-        <h2>Attendance</h2>
+</tr>
 
-        <form method="POST" action="{{ route('attendance.checkin') }}">
-            @csrf
-            <button type="submit" class="btn checkin-btn">
-                Check In
-            </button>
-        </form>
+@endforeach
 
-        <form method="POST" action="{{ route('attendance.checkout') }}">
-            @csrf
-            <button type="submit" class="btn checkout-btn">
-                Check Out
-            </button>
-        </form>
+</table>
 
-    </div>
-
-</body>
-
-</html>
+{{ $attendances->links() }}
