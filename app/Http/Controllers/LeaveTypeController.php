@@ -13,5 +13,27 @@ class LeaveTypeController extends Controller
 
         return view('leave-types.index', compact('leaveTypes'));
     }
-    
+
+    public function create()
+    {
+        return view('leave-types.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'max_days' => 'required|integer|min:0',
+        ]);
+
+        LeaveType::create([
+            'name' => $request->name,
+            'max_days' => $request->max_days,
+            'is_paid' => $request->is_paid,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('leave-types.index')
+            ->with('success', 'Leave Type Created Successfully.');
+    }
 }
