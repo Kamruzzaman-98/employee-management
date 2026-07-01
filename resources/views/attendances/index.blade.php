@@ -7,17 +7,17 @@
     <style>
         body {
             font-family: Arial;
-            background: #f4f4f4;
+            background: #f4f6f9;
             padding: 20px;
         }
 
         .container {
-            width: 900px;
+            max-width: 1000px;
             margin: auto;
             background: #fff;
             padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
         }
 
         h2 {
@@ -25,62 +25,84 @@
             margin-bottom: 20px;
         }
 
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 800px;
         }
 
         table th {
-            background: #333;
+            background: #0d6efd;
             color: white;
             padding: 12px;
             text-align: center;
+            font-size: 14px;
         }
 
         table td {
-            border: 1px solid #ddd;
+            border: 1px solid #eee;
             padding: 10px;
             text-align: center;
+            font-size: 14px;
         }
 
         table tr:nth-child(even) {
-            background: #f9f9f9;
+            background: #f8f9fa;
         }
 
         table tr:hover {
-            background: #f1f1f1;
+            background: #eef2ff;
         }
 
         .badge {
             padding: 5px 10px;
-            border-radius: 4px;
+            border-radius: 20px;
             color: white;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
+            display: inline-block;
         }
 
         .present {
-            background: green;
+            background: #198754;
         }
 
         .late {
-            background: orange;
+            background: #fd7e14;
         }
 
         .absent {
-            background: red;
+            background: #dc3545;
         }
 
-        .button-group {
-            margin-top: 20px;
+        .leave {
+            background: #6f42c1;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
         .btn {
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 4px;
+            padding: 8px 14px;
+            background: #343a40;
             color: white;
-            background: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #777;
         }
 
         .pagination {
@@ -88,92 +110,100 @@
             display: flex;
             justify-content: center;
         }
-
-        .pagination nav {
-            display: flex;
-            gap: 5px;
-        }
     </style>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h2>Attendance History</h2>
+        <div class="top-bar">
+            <h2>Attendance History</h2>
 
-    <table>
+            {{-- <a href="{{ url()->previous() }}" class="btn">Back</a> --}}
+        </div>
 
-        <thead>
-            <tr>
-                <th>Code</th>
-                <th>Date</th>
-                <th>Check In</th>
-                <th>Check Out</th>
-                <th>Working Time</th>
-                <th>Late Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+        <div class="table-wrapper">
 
-        <tbody>
+            <table>
 
-            @forelse($attendances as $attendance)
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Date</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Working Time</th>
+                        <th>Late Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>{{ $attendance->employee->employee_code }}</td>
+                <tbody>
 
-                    <td>{{ $attendance->attendance_date->format('d M Y') }}</td>
+                    @forelse($attendances as $attendance)
+                        <tr @if (auth()->user()->employee->id == $attendance->employee_id) style="background:#f0f8ff;" @endif>
 
-                    <td>
-                        {{ optional($attendance->check_in)->format('h:i A') ?? '-' }}
-                    </td>
+                            <td>{{ $attendance->employee->employee_code }}</td>
 
-                    <td>
-                        {{ optional($attendance->check_out)->format('h:i A') ?? '-' }}
-                    </td>
+                            <td>{{ $attendance->attendance_date->format('d M Y') }}</td>
 
-                    <td>{{ $attendance->working_minutes }} Min</td>
+                            <td>
+                                {{ $attendance->check_in ? $attendance->check_in->format('h:i A') : '-' }}
+                            </td>
 
-                    <td>{{ $attendance->late_minutes }} Min</td>
+                            <td>
+                                {{ $attendance->check_out ? $attendance->check_out->format('h:i A') : '-' }}
+                            </td>
 
-                    <td>
+                            <td>
+                                @if ($attendance->working_minutes)
+                                    {{ intdiv($attendance->working_minutes, 60) }}h
+                                    {{ $attendance->working_minutes % 60 }}m
+                                @else
+                                    -
+                                @endif
+                            </td>
 
-                        @if($attendance->status == 'present')
-                            <span class="badge present">Present</span>
+                            <td>
+                                {{ $attendance->late_minutes ?? 0 }} min
+                            </td>
 
-                        @elseif($attendance->status == 'late')
-                            <span class="badge late">Late</span>
+                            <td>
+                                @if ($attendance->status == 'present')
+                                    <span class="badge present">Present</span>
+                                @elseif($attendance->status == 'late')
+                                    <span class="badge late">Late</span>
+                                @elseif($attendance->status == 'leave')
+                                    <span class="badge leave">Leave</span>
+                                @else
+                                    <span class="badge absent">Absent</span>
+                                @endif
+                            </td>
 
-                        @else
-                            <span class="badge absent">
-                                {{ ucfirst($attendance->status) }}
-                            </span>
-                        @endif
+                        </tr>
 
-                    </td>
+                    @empty
 
-                </tr>
+                        <tr>
+                            <td colspan="7" class="empty">
+                                No attendance records found
+                            </td>
+                        </tr>
+                    @endforelse
 
-            @empty
+                </tbody>
 
-                <tr>
-                    <td colspan="6">No attendance records found.</td>
-                </tr>
+            </table>
 
-            @endforelse
+        </div>
 
-        </tbody>
+        <div class="pagination">
+            {{ $attendances->links() }}
+        </div>
 
-    </table>
-
-    <div class="pagination">
-        {{ $attendances->links() }}
     </div>
-
-
-</div>
 
 </body>
 
