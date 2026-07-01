@@ -1,78 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>Employee Attendance</title>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
+            background: #f4f6f9;
+            padding: 40px;
         }
 
         .container {
-            width: 700px;
+            max-width: 750px;
             margin: auto;
             background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #0d6efd;
+            color: white;
+            padding: 20px;
+        }
+
+        .header h2 {
+            margin-bottom: 8px;
+        }
+
+        .content {
             padding: 25px;
+        }
+
+        .card {
+            border: 1px solid #e5e5e5;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-        }
-
-        h2 {
-            text-align: center;
+            padding: 18px;
             margin-bottom: 20px;
+            background: #fafafa;
         }
 
-        .info-box {
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .info-box p {
-            margin: 8px 0;
+        .card p {
+            margin: 10px 0;
             font-size: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .badge-success {
+            background: #198754;
+        }
+
+        .badge-primary {
+            background: #0d6efd;
         }
 
         .btn {
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 4px;
-            color: white;
+            display: inline-block;
+            padding: 10px 20px;
             border: none;
+            border-radius: 5px;
+            color: white;
             cursor: pointer;
+            text-decoration: none;
             font-size: 15px;
         }
 
-        .checkin-btn {
-            background: green;
+        .btn-success {
+            background: #198754;
         }
 
-        .checkout-btn {
+        .btn-danger {
             background: #dc3545;
         }
 
-        .back-btn {
-            background: #333;
-            margin-left: 10px;
+        .btn-dark {
+            background: #343a40;
         }
 
         .button-group {
             margin-top: 20px;
         }
 
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .button-group .btn {
+            margin-right: 10px;
+        }
+
+        .complete {
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            color: #0f5132;
             padding: 15px;
-            border-radius: 5px;
-            text-align: center;
+            border-radius: 6px;
+            margin-bottom: 20px;
             font-weight: bold;
+            text-align: center;
         }
     </style>
 
@@ -82,64 +125,140 @@
 
     <div class="container">
 
-        <h2>Employee Attendance</h2>
+        <div class="header">
+            <h2>Employee Attendance</h2>
+            <p>{{ now()->format('d F Y') }}</p>
+        </div>
 
-        @if (!$todayAttendance)
-            <div class="info-box">
-                <p><strong>Status:</strong> Not Checked In Yet</p>
+        <div class="content">
+
+            <div class="card">
+                <p><strong>Employee Code :</strong>{{ auth()->user()->employee->employee_code }}</p>
+                <p><strong>Employee :</strong> {{ auth()->user()->name }}</p>
+                <p><strong>Department :</strong> {{ auth()->user()->employee->department->name }}</p>
+                <p><strong>Designation :</strong> {{ auth()->user()->employee->designation->name }}</p>
             </div>
 
-            <form action="{{ route('attendance.checkin') }}" method="POST">
-                @csrf
+            @if (!$todayAttendance)
+                <div class="card">
 
-                <div class="button-group">
-                    <button type="submit" class="btn checkin-btn">
-                        Check In
-                    </button>
+                    <p>
+                        <strong>Status :</strong>
+                        <span class="badge badge-warning">
+                            Not Checked In
+                        </span>
+                    </p>
 
-                    <a href="{{ url()->previous() }}" class="btn back-btn">
-                        Back
-                    </a>
+                    <p><strong>Check In :</strong> --</p>
+                    <p><strong>Check Out :</strong> --</p>
+
                 </div>
-            </form>
-        @elseif(!$todayAttendance->check_out)
-            <div class="info-box">
-                <p><strong>Check In Time:</strong>
-                    {{ $todayAttendance->check_in->format('h:i A') }}
-                </p>
 
-                <p><strong>Status:</strong> Checked In</p>
-            </div>
+                <form action="{{ route('attendance.checkin') }}" method="POST">
+                    @csrf
 
-            <form action="{{ route('attendance.checkout') }}" method="POST">
-                @csrf
+                    <div class="button-group">
 
-                <div class="button-group">
-                    <button type="submit" class="btn checkout-btn">
-                        Check Out
-                    </button>
+                        <button class="btn btn-success">
+                            ✔ Check In
+                        </button>
 
-                    <a href="{{ url()->previous() }}" class="btn back-btn">
-                        Back
-                    </a>
+                        <a href="{{ url()->previous() }}" class="btn btn-dark">
+                            Back
+                        </a>
+
+                    </div>
+
+                </form>
+            @elseif(!$todayAttendance->check_out)
+                <div class="card">
+
+                    <p>
+                        <strong>Status :</strong>
+
+                        <span class="badge badge-primary">
+                            Checked In
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Check In :</strong>
+
+                        {{ $todayAttendance->check_in->format('h:i A') }}
+                    </p>
+
+                    <p>
+                        <strong>Check Out :</strong>
+
+                        --
+                    </p>
+
+                    <p>
+                        <strong>Working Time :</strong>
+
+                        In Progress...
+                    </p>
+
                 </div>
-            </form>
-        @else
-            <div class="success-message">
-                ✅ You have completed today's attendance.
-            </div>
 
-            <div class="info-box">
-                <p><strong>Check In:</strong>
-                    {{ $todayAttendance->check_in->format('h:i A') }}
-                </p>
+                <form action="{{ route('attendance.checkout') }}" method="POST">
 
-                <p><strong>Check Out:</strong>
-                    {{ $todayAttendance->check_out->format('h:i A') }}
-                </p>
-            </div>
-            
-        @endif
+                    @csrf
+
+                    <div class="button-group">
+
+                        <button class="btn btn-danger">
+                            ✔ Check Out
+                        </button>
+
+                        <a href="{{ route('attendance.index') }}" class="btn btn-dark">
+                            Back
+                        </a>
+
+                    </div>
+
+                </form>
+            @else
+                <div class="complete">
+                    ✅ Today's Attendance Completed Successfully
+                </div>
+
+                <div class="card">
+
+                    <p>
+                        <strong>Status :</strong>
+
+                        <span class="badge badge-success">
+                            Present
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Check In :</strong>
+
+                        {{ $todayAttendance->check_in->format('h:i A') }}
+                    </p>
+
+                    <p>
+                        <strong>Check Out :</strong>
+
+                        {{ $todayAttendance->check_out->format('h:i A') }}
+                    </p>
+
+                    <p>
+                        <strong>Working Time :</strong>
+
+                        {{ $todayAttendance->check_in->diff($todayAttendance->check_out)->format('%h Hours %i Minutes') }}
+                    </p>
+
+                </div>
+
+                <a href="{{ route('attendance.index') }}" class="btn btn-back-btn">
+                    Back
+                </a>
+            @endif
+
+        </div>
 
     </div>
 
