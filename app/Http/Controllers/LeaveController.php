@@ -54,4 +54,41 @@ class LeaveController extends Controller
         return redirect()->route('leaves.index')
             ->with('success', 'Leave Created Successfully.');
     }
+
+    public function edit($id)
+    {
+        $leave = Leave::findOrFail($id);
+        $employees = Employee::all();
+        $leaveTypes = LeaveType::where('status', 1)->get();
+
+        return view('leaves.edit', compact('leave', 'employees', 'leaveTypes'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $leave = Leave::findOrFail($id);
+
+        $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'leave_type_id' => 'required|exists:leave_types,id',
+            'from_date' => 'required|date',
+            'to_date' => 'required|date|after_or_equal:from_date',
+            'reason' => 'required',
+        ]);
+
+        $days = Carbon::parse($request->from_date)
+            ->diffInDays(Carbon::parse($request->to_date)) + 1;
+
+        $leave->update([
+            'employee_id' => $request->employee_id,
+            'leave_type_id' => $request->leave_type_id,
+            'from_date' => $request->from_date,
+            'to_date' => $request->to_date,
+            'total_days' => $days,
+            'reason' => $request->reason,
+        ]);
+
+        return redirect()->route('leaves.index')
+            ->with('success', 'Leave Updated Successfully.');
+    }
 }
