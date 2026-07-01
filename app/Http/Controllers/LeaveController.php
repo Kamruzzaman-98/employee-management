@@ -91,4 +91,14 @@ class LeaveController extends Controller
         return redirect()->route('leaves.index')
             ->with('success', 'Leave Updated Successfully.');
     }
+
+    public function destroy($id)
+    {
+        $leave = Leave::findOrFail($id);
+
+        $leave->delete();
+
+        return redirect()->route('leaves.index')
+            ->with('success', 'Leave Deleted Successfully.');
+    }
 }
