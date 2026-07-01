@@ -137,7 +137,7 @@
             </a>
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="success">
                 {{ session('success') }}
             </div>
@@ -161,12 +161,11 @@
             <tbody>
 
                 @forelse($leaves as $leave)
-
                     <tr>
 
                         <td>{{ $loop->iteration }}</td>
 
-                        <td>{{ $leave->employee->name }}</td>
+                        <td>{{ $leave->employee->user->name }}</td>
 
                         <td>{{ $leave->leaveType->name }}</td>
 
@@ -178,44 +177,33 @@
 
                         <td>
 
-                            @if($leave->status == 'pending')
-
+                            @if ($leave->status == 'pending')
                                 <span class="badge pending">Pending</span>
-
                             @elseif($leave->status == 'approved')
-
                                 <span class="badge approved">Approved</span>
-
                             @else
-
                                 <span class="badge rejected">Rejected</span>
-
                             @endif
 
                         </td>
 
                         <td>
 
-                            <a href="{{ route('leaves.show', $leave) }}"
-                                class="btn view-btn">
+                            <a href="{{ route('leaves.show', $leave) }}" class="btn view-btn">
                                 View
                             </a>
 
-                            <a href="{{ route('leaves.edit', $leave) }}"
-                                class="btn edit-btn">
+                            <a href="{{ route('leaves.edit', $leave) }}" class="btn edit-btn">
                                 Edit
                             </a>
 
-                            <form action="{{ route('leaves.destroy', $leave) }}"
-                                method="POST"
+                            <form action="{{ route('leaves.destroy', $leave) }}" method="POST"
                                 style="display:inline;">
 
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit"
-                                    class="btn delete-btn"
-                                    onclick="return confirm('Are you sure?')">
+                                <button type="submit" class="btn delete-btn" onclick="return confirm('Are you sure?')">
 
                                     Delete
 
@@ -234,7 +222,6 @@
                             No Leave Records Found.
                         </td>
                     </tr>
-
                 @endforelse
 
             </tbody>
