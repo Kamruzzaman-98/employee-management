@@ -124,4 +124,19 @@ class LeaveController extends Controller
 
         return back()->with('success', 'Leave Approved Successfully');
     }
+
+    public function reject(Leave $leave)
+    {
+        if ($leave->status != 'Pending') {
+            abort(403, 'Already processed');
+        }
+
+        $leave->update([
+            'status' => 'Rejected',
+            'approved_by' => auth()->id(),
+            'approved_at' => now(),
+        ]);
+
+        return back()->with('success', 'Leave Rejected Successfully');
+    }
 }
