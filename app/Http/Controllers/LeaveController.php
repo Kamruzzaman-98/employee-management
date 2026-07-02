@@ -102,12 +102,10 @@ class LeaveController extends Controller
             ->with('success', 'Leave Deleted Successfully.');
     }
 
-    public function requests()
+    public function hrIndex()
     {
-        $leaves = Leave::with('employee')
-            ->latest()
-            ->get();
+        $leaves = Leave::with('employee')->latest()->get();
 
-        return view('hr.leave.requests', compact('leaves'));
+        return view('hr.leave.index', compact('leaves'));
     }
 }
