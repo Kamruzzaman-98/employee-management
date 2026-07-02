@@ -101,4 +101,13 @@ class LeaveController extends Controller
         return redirect()->route('leaves.index')
             ->with('success', 'Leave Deleted Successfully.');
     }
+
+    public function requests()
+    {
+        $leaves = Leave::with('employee')
+            ->latest()
+            ->get();
+
+        return view('hr.leave.requests', compact('leaves'));
+    }
 }

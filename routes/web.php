@@ -40,4 +40,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendance/check-out', [AttendanceController::class, 'checkOut'])->name('attendance.checkout');
 });
 
+Route::middleware(['role:HR'])->prefix('hr')->group(function () {
+
+    Route::get('/leave-requests', [LeaveController::class, 'requests'])
+        ->name('leave.requests');
+
+    Route::put('/leave/{leave}/approve', [LeaveController::class, 'approve'])
+        ->name('leave.approve');
+
+    Route::put('/leave/{leave}/reject', [LeaveController::class, 'reject'])
+        ->name('leave.reject');
+});
+
 require __DIR__ . '/auth.php';
