@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['role:HR'])->prefix('hr')->group(function () {
 
     Route::get('/leave-requests', [LeaveController::class, 'hrIndex'])
-        ->name('hr.leave.index');
+        ->name('leave.index');
 
     Route::put('/leave/{leave}/approve', [LeaveController::class, 'approve'])
         ->name('leave.approve');

@@ -112,12 +112,12 @@ class LeaveController extends Controller
     public function approve(Leave $leave)
     {
 
-        if ($leave->status != 'Pending') {
+        if ($leave->status != 'pending') {
             abort(403, 'Already processed');
         }
 
         $leave->update([
-            'status' => 'Approved',
+            'status' => 'approved',
             'approved_by' => auth()->id(),
             'approved_at' => now(),
         ]);
@@ -127,12 +127,12 @@ class LeaveController extends Controller
 
     public function reject(Leave $leave)
     {
-        if ($leave->status != 'Pending') {
+        if ($leave->status != 'pending') {
             abort(403, 'Already processed');
         }
 
         $leave->update([
-            'status' => 'Rejected',
+            'status' => 'rejected',
             'approved_by' => auth()->id(),
             'approved_at' => now(),
         ]);

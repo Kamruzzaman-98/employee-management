@@ -143,8 +143,8 @@
                         <td>
                             <span
                                 class="status
-                            @if ($leave->status == 'Pending') pending
-                            @elseif($leave->status == 'Approved') approved
+                            @if ($leave->status == 'pending') pending
+                            @elseif($leave->status == 'approved') approved
                             @else rejected @endif">
 
                                 {{ $leave->status }}
@@ -154,8 +154,8 @@
 
                         <td>
 
-                            @if ($leave->status == 'Pending')
-                                <form action="{{ route('hr.leave.approve', $leave->id) }}" method="POST"
+                            @if ($leave->status == 'pending')
+                                <form action="{{ route('leave.approve', $leave->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('PUT')
@@ -166,7 +166,7 @@
 
                                 </form>
 
-                                <form action="{{ route('hr.leave.reject', $leave->id) }}" method="POST"
+                                <form action="{{ route('leave.reject', $leave->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('PUT')
