@@ -55,6 +55,17 @@ class LeaveController extends Controller
             ->with('success', 'Leave Created Successfully.');
     }
 
+    public function show($id)
+    {
+        $leave = Leave::with([
+            'employee.user',
+            'leaveType',
+            'approver'
+        ])->findOrFail($id);
+
+        return view('leaves.show', compact('leave'));
+    }
+
     public function edit($id)
     {
         $leave = Leave::findOrFail($id);
