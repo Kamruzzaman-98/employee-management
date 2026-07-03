@@ -193,21 +193,22 @@
                                 View
                             </a>
 
-                            <a href="{{ route('leaves.edit', $leave) }}" class="btn edit-btn">
-                                Edit
-                            </a>
+                            @if ($leave->status == 'pending')
+                                <a href="{{ route('leaves.edit', $leave) }}" class="btn edit-btn">
+                                    Edit
+                                </a>
 
-                            <form action="{{ route('leaves.destroy', $leave) }}" method="POST"
-                                style="display:inline;">
+                                <form action="{{ route('leaves.destroy', $leave) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
 
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn delete-btn" onclick="return confirm('Are you sure?')">
-
-                                    Delete
-
-                                </button>
+                                    <button type="submit" class="btn delete-btn"
+                                        onclick="return confirm('Are you sure?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            @endif
 
                             </form>
 
