@@ -41,5 +41,20 @@ class HolidayController extends Controller
         return view('holidays.edit', compact('holiday'));
     }
 
-    
+    public function update(Request $request, Holiday $holiday)
+    {
+        $validated = $request->validate([
+            'title'         => 'required|string|max:255',
+            'holiday_date' => 'required|date|unique:holidays,holiday_date,' . $holiday->id,
+            'type'          => 'required|in:National,Religious,Company',
+            'description'   => 'nullable|string',
+            'status'        => 'required|boolean',
+        ]);
+
+        $holiday->update($validated);
+
+        return redirect()
+            ->route('holidays.index')
+            ->with('success', 'Holiday updated successfully.');
+    }
 }
