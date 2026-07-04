@@ -13,4 +13,9 @@ class HolidayController extends Controller
 
         return view('holidays.index', compact('holidays'));
     }
+
+    public function create()
+    {
+        return view('holidays.create');
+    }
 }

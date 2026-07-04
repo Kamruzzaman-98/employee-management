@@ -108,7 +108,7 @@
         <div class="top-bar">
             <h2>Holiday List</h2>
 
-            <a href=" " class="btn add-btn">
+            <a href=" {{ route('holidays.create') }} " class="btn add-btn">
                 + Add Holiday
             </a>
         </div>
