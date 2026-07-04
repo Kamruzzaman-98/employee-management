@@ -57,4 +57,13 @@ class HolidayController extends Controller
             ->route('holidays.index')
             ->with('success', 'Holiday updated successfully.');
     }
+
+    public function destroy(Holiday $holiday)
+    {
+        $holiday->delete();
+
+        return redirect()
+            ->route('holidays.index')
+            ->with('success', 'Holiday deleted successfully.');
+    }
 }
