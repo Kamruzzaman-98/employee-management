@@ -148,13 +148,13 @@
                             </span>
                         </td>
 
-                     <td>
+                        <td>
 
                             <a href="{{ route('holidays.edit', $holiday->id) }}" class="btn edit-btn">
                                 Edit
                             </a>
 
-                            {{-- <form action="{{ route('holiday.destroy', $holiday->id) }}" method="POST"
+                            <form action="{{ route('holidays.destroy', $holiday->id) }}" method="POST"
                                 style="display:inline;">
 
                                 @csrf
@@ -167,7 +167,7 @@
 
                                 </button>
 
-                            </form> --}}
+                            </form>
 
                         </td>
 
