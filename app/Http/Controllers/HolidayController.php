@@ -35,4 +35,11 @@ class HolidayController extends Controller
             ->route('holidays.index')
             ->with('success', 'Holiday created successfully.');
     }
+
+    public function edit(Holiday $holiday)
+    {
+        return view('holidays.edit', compact('holiday'));
+    }
+
+    
 }
