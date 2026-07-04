@@ -148,7 +148,7 @@
                             </span>
                         </td>
 
-                        <td>
+                        {{-- <td>
 
                             <a href="{{ route('holiday.edit', $holiday->id) }}" class="btn edit-btn">
                                 Edit
@@ -169,7 +169,7 @@
 
                             </form>
 
-                        </td>
+                        </td> --}}
 
                     </tr>
 

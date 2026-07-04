@@ -91,7 +91,7 @@
 
         <h2>Add Holiday</h2>
 
-        <form action="" method="POST">
+        <form action="{{ route('holidays.store') }}" method="POST">
 
             @csrf
 

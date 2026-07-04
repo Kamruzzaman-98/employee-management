@@ -18,4 +18,21 @@ class HolidayController extends Controller
     {
         return view('holidays.create');
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title'         => 'required|string|max:255',
+            'holiday_date' => 'required|date|unique:holidays,holiday_date',
+            'type'          => 'required|in:National,Religious,Company',
+            'description'   => 'nullable|string',
+            'status'        => 'required|boolean',
+        ]);
+
+        Holiday::create($validated);
+
+        return redirect()
+            ->route('holidays.index')
+            ->with('success', 'Holiday created successfully.');
+    }
 }
