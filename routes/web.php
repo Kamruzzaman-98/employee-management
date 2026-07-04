@@ -4,6 +4,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ProfileController;
@@ -50,6 +51,8 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
 
     Route::put('/leave/{leave}/reject', [LeaveController::class, 'reject'])
         ->name('leave.reject');
+
+    Route::resource('holidays', HolidayController::class);
 });
 
 require __DIR__ . '/auth.php';
