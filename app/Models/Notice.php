@@ -15,7 +15,7 @@ class Notice extends Model
         'status',
     ];
 
-    public function user()
+    public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }

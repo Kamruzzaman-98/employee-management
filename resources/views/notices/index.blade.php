@@ -118,7 +118,7 @@
             <h2>All Notice</h2>
 
             <a href="{{ route('notices.create') }}" class="btn add-btn">
-                + Create Notice 
+                + Create Notice
             </a>
         </div>
 
@@ -158,7 +158,7 @@
                         </td>
 
                         <td class="small">
-                            {{ $notice->created_by }}
+                            {{ $notice->creator->name }}
                         </td>
 
                         <td>
