@@ -118,7 +118,7 @@
             <h2>All Notice</h2>
 
             <a href="{{ route('notices.create') }}" class="btn add-btn">
-                + Add New
+                + Create Notice 
             </a>
         </div>
 

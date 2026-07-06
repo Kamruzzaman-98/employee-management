@@ -13,4 +13,9 @@ class NoticeController extends Controller
 
         return view('notices.index', compact('notices'));
     }
+
+    public function create()
+    {
+        return view('notices.create');
+    }
 }
