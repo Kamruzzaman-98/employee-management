@@ -41,4 +41,11 @@ class NoticeController extends Controller
         return redirect()->route('notices.index')
             ->with('success', 'Notice created successfully!');
     }
+
+    public function edit($id)
+    {
+        $notice = Notice::findOrFail($id);
+
+        return view('notice.edit', compact('notice'));
+    }
 }
