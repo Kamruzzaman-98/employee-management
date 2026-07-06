@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,8 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
         ->name('leave.reject');
 
     Route::resource('holidays', HolidayController::class);
+
+    Route::resource('notices', NoticeController::class);
 });
 
 require __DIR__ . '/auth.php';
