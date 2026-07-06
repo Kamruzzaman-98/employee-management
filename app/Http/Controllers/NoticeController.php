@@ -48,4 +48,28 @@ class NoticeController extends Controller
 
         return view('notices.edit', compact('notice'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'publish_date' => 'required|date',
+            'expire_date' => 'nullable|date|after_or_equal:publish_date',
+            'status' => 'required'
+        ]);
+
+        $notice = Notice::findOrFail($id);
+
+        $notice->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'publish_date' => $request->publish_date,
+            'expire_date' => $request->expire_date,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('notices.index')
+            ->with('success', 'Notice updated successfully!');
+    }
 }
