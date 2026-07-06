@@ -46,6 +46,6 @@ class NoticeController extends Controller
     {
         $notice = Notice::findOrFail($id);
 
-        return view('notice.edit', compact('notice'));
+        return view('notices.edit', compact('notice'));
     }
 }

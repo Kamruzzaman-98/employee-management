@@ -169,11 +169,11 @@
 
                         <td>
 
-                            {{-- <a href="{{ route('items.edit', $item->id) }}" class="btn edit-btn">
+                            <a href="{{ route('notices.edit', $notice->id) }}" class="btn edit-btn">
                                 Edit
                             </a>
 
-                            <form action="{{ route('items.destroy', $item->id) }}" method="POST"
+                            {{-- <form action="{{ route('items.destroy', $item->id) }}" method="POST"
                                 style="display:inline;">
 
                                 @csrf
@@ -183,7 +183,7 @@
                                     Delete
                                 </button>
 
-                            </form> --}}
+                            </form>  --}}
 
                         </td>
 
