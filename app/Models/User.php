@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Employee::class);
     }
+
+    public function notices()
+    {
+        return $this->hasMany(Notice::class, 'created_by');
+    }
 }
