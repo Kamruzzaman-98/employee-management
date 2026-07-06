@@ -78,6 +78,7 @@
 
         .delete-btn {
             background: #dc3545;
+            margin-left: 2px;
         }
 
         .badge {
@@ -173,7 +174,7 @@
                                 Edit
                             </a>
 
-                            {{-- <form action="{{ route('items.destroy', $item->id) }}" method="POST"
+                            <form action="{{ route('notices.destroy', $notice->id) }}" method="POST"
                                 style="display:inline;">
 
                                 @csrf
@@ -183,7 +184,7 @@
                                     Delete
                                 </button>
 
-                            </form>  --}}
+                            </form>
 
                         </td>
 
