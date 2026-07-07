@@ -18,4 +18,20 @@ class RoleController extends Controller
     {
         return view('roles.create');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|unique:roles,name'
+        ]);
+
+        Role::create([
+            'name' => $request->name,
+            'guard_name' => 'web'
+        ]);
+
+        return redirect()
+            ->route('roles.index')
+            ->with('success', 'Role created successfully.');
+    }
 }
