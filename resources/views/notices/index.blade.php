@@ -74,11 +74,19 @@
         .edit-btn {
             background: #ffc107;
             color: #000;
+            margin: 2px;
+        }
+
+        .view-btn {
+            background: #17a2b8;
+        }
+
+        .view-btn:hover {
+            background: #138496;
         }
 
         .delete-btn {
             background: #dc3545;
-            margin-left: 2px;
         }
 
         .badge {
@@ -169,10 +177,14 @@
                         </td>
 
                         <td>
+                            <a href="{{ route('notices.show', $notice->id) }}" class="btn view-btn">
+                                View
+                            </a>
 
                             <a href="{{ route('notices.edit', $notice->id) }}" class="btn edit-btn">
                                 Edit
                             </a>
+
 
                             <form action="{{ route('notices.destroy', $notice->id) }}" method="POST"
                                 style="display:inline;">
