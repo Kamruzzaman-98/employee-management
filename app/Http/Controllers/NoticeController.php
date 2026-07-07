@@ -74,6 +74,14 @@ class NoticeController extends Controller
     }
 
 
+    public function show($id)
+    {
+        $notice = Notice::with('creator')->findOrFail($id);
+
+        return view('notices.show', compact('notice'));
+    }
+
+
     public function destroy($id)
     {
         $notice = Notice::findOrFail($id);
