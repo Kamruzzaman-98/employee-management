@@ -34,4 +34,11 @@ class RoleController extends Controller
             ->route('roles.index')
             ->with('success', 'Role created successfully.');
     }
+
+    public function edit($id)
+    {
+        $role = Role::findOrFail($id);
+
+        return view('roles.edit', compact('role'));
+    }
 }
