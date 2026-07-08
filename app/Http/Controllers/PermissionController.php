@@ -18,4 +18,28 @@ class PermissionController extends Controller
     {
         return view('permissions.create');
     }
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+
+            'name' => 'required|unique:permissions,name'
+
+        ]);
+
+
+        Permission::create([
+
+            'name' => $request->name,
+
+            'guard_name' => 'web'
+
+        ]);
+
+
+        return redirect()->route('permissions.index')
+
+            ->with('success', 'Permission Created Successfully');
+    }
 }
