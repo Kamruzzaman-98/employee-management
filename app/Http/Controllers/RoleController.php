@@ -41,4 +41,20 @@ class RoleController extends Controller
 
         return view('roles.edit', compact('role'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|unique:roles,name,' . $role->id,
+        ]);
+
+        $role->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('roles.index')
+            ->with('success', 'Role Updated Successfully');
+    }
 }
