@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/attendance/check-out', [AttendanceController::class, 'checkOut'])->name('attendance.checkout');
 
-    Route::resource('roles', RoleController::class);
+
 });
 
 Route::middleware(['role:HR'])->prefix('hr')->group(function () {
@@ -59,6 +59,8 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
     Route::resource('holidays', HolidayController::class);
 
     Route::resource('notices', NoticeController::class);
+
+    Route::resource('roles', RoleController::class);
 });
 
 require __DIR__ . '/auth.php';
