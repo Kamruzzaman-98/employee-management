@@ -42,4 +42,11 @@ class PermissionController extends Controller
 
             ->with('success', 'Permission Created Successfully');
     }
+
+    public function edit($id)
+    {
+        $permission = Permission::findOrFail($id);
+
+        return view('permissions.edit', compact('permission'));
+    }
 }
