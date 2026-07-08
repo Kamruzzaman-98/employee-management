@@ -57,4 +57,19 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
             ->with('success', 'Role Updated Successfully');
     }
+
+    public function destroy($id)
+    {
+        $role = Role::findOrFail($id);
+
+        if ($role->name == 'Super Admin') {
+            return redirect()->route('roles.index')
+                ->with('error', 'Super Admin role cannot be deleted.');
+        }
+
+        $role->delete();
+
+        return redirect()->route('roles.index')
+            ->with('success', 'Role Deleted Successfully');
+    }
 }
