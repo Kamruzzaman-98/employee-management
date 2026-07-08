@@ -70,4 +70,16 @@ class PermissionController extends Controller
 
             ->with('success', 'Permission Updated Successfully');
     }
+
+    public function destroy($id)
+    {
+        $permission = Permission::findOrFail($id);
+
+        $permission->roles()->detach();
+
+        $permission->delete();
+
+        return redirect()->route('permissions.index')
+            ->with('success', 'Permission Deleted Successfully');
+    }
 }
