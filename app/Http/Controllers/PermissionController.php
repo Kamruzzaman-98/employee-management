@@ -49,4 +49,25 @@ class PermissionController extends Controller
 
         return view('permissions.edit', compact('permission'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $permission = Permission::findOrFail($id);
+
+        $request->validate([
+
+            'name' => 'required|unique:permissions,name,' . $permission->id
+
+        ]);
+
+        $permission->update([
+
+            'name' => $request->name
+
+        ]);
+
+        return redirect()->route('permissions.index')
+
+            ->with('success', 'Permission Updated Successfully');
+    }
 }
