@@ -48,10 +48,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('permissions', PermissionController::class);
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
 
 Route::middleware(['role:HR'])->prefix('hr')->group(function () {
