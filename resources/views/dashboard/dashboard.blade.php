@@ -1,189 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container py-4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <h3 class="mb-4">Dashboard</h3>
+    <title>HR Dashboard</title>
 
-    <div class="row">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-primary shadow">
-                <div class="card-body">
-                    <h6>Total Employees</h6>
-                    <h2>{{ $totalEmployees }}</h2>
-                </div>
-            </div>
-        </div>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-success shadow">
-                <div class="card-body">
-                    <h6>Total Departments</h6>
-                    <h2>{{ $totalDepartments }}</h2>
-                </div>
-            </div>
-        </div>
+    <style>
+        body {
+            background: #f5f7fb;
+        }
 
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-info shadow">
-                <div class="card-body">
-                    <h6>Total Designations</h6>
-                    <h2>{{ $totalDesignations }}</h2>
-                </div>
-            </div>
-        </div>
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            background: #111827;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px;
+        }
 
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-warning shadow">
-                <div class="card-body">
-                    <h6>Present Today</h6>
-                    <h2>{{ $presentToday }}</h2>
-                </div>
-            </div>
-        </div>
+        .sidebar h3 {
+            color: white;
+            margin-bottom: 30px;
+        }
 
-    </div>
 
-    <div class="row">
+        .sidebar a {
+            display: block;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
 
-        <div class="col-md-4 mb-3">
-            <div class="card border-danger shadow">
-                <div class="card-body">
-                    <h6>Absent Today</h6>
-                    <h2 class="text-danger">{{ $absentToday }}</h2>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-4 mb-3">
-            <div class="card border-warning shadow">
-                <div class="card-body">
-                    <h6>Pending Leaves</h6>
-                    <h2 class="text-warning">{{ $pendingLeaves }}</h2>
-                </div>
-            </div>
-        </div>
+        .sidebar a:hover {
+            background: #2563eb;
+            color: white;
+        }
 
-        <div class="col-md-4 mb-3">
-            <div class="card border-success shadow">
-                <div class="card-body">
-                    <h6>Approved Leaves</h6>
-                    <h2 class="text-success">{{ $approvedLeaves }}</h2>
-                </div>
-            </div>
-        </div>
 
-    </div>
+        .main {
+            margin-left: 260px;
+            padding: 25px;
+        }
 
-    <div class="row mt-4">
 
-        <div class="col-md-6">
+        .card-box {
 
-            <div class="card shadow">
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
 
-                <div class="card-header">
-                    <strong>Recent Employees</strong>
-                </div>
+        }
 
-                <div class="card-body">
 
-                    <table class="table table-bordered">
+        .icon {
 
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Department</th>
-                                <th>Joining Date</th>
-                            </tr>
-                        </thead>
+            font-size: 35px;
+            opacity: .8;
 
-                        <tbody>
+        }
+    </style>
 
-                            @forelse($recentEmployees as $employee)
+</head>
 
-                            <tr>
-                                <td>{{ $employee->name }}</td>
 
-                                <td>{{ $employee->department->name ?? '-' }}</td>
+<body>
 
-                                <td>{{ $employee->joining_date }}</td>
-                            </tr>
 
-                            @empty
+    <!-- Sidebar -->
 
-                            <tr>
-                                <td colspan="3" class="text-center">
-                                    No Employee Found
-                                </td>
-                            </tr>
+    <div class="sidebar">
 
-                            @endforelse
+        <h3>
+            <i class="fa fa-users"></i>
+            HRMS
+        </h3>
 
-                        </tbody>
 
-                    </table>
+        <a href="/dashboard">
+            <i class="fa fa-home"></i>
+            Dashboard
+        </a>
 
-                </div>
 
-            </div>
+        <a href="/employees">
+            <i class="fa fa-user"></i>
+            Employees
+        </a>
 
-        </div>
 
-        <div class="col-md-6">
+        <a href="/departments">
+            <i class="fa fa-building"></i>
+            Departments
+        </a>
 
-            <div class="card shadow">
 
-                <div class="card-header">
-                    <strong>Recent Notices</strong>
-                </div>
+        <a href="/designations">
+            <i class="fa fa-briefcase"></i>
+            Designations
+        </a>
 
-                <div class="card-body">
 
-                    <table class="table table-bordered">
+        <a href="/attendance">
+            <i class="fa fa-clock"></i>
+            Attendance
+        </a>
 
-                        <thead>
 
-                            <tr>
-                                <th>Title</th>
-                                <th>Date</th>
-                            </tr>
+        <a href="/leaves">
+            <i class="fa fa-calendar"></i>
+            Leaves
+        </a>
 
-                        </thead>
 
-                        <tbody>
+        <a href="/logout">
+            <i class="fa fa-sign-out"></i>
+            Logout
+        </a>
 
-                            @forelse($recentNotices as $notice)
-
-                            <tr>
-
-                                <td>{{ $notice->title }}</td>
-
-                                <td>{{ $notice->created_at->format('d M Y') }}</td>
-
-                            </tr>
-
-                            @empty
-
-                            <tr>
-
-                                <td colspan="2" class="text-center">
-                                    No Notice Found
-                                </td>
-
-                            </tr>
-
-                            @endforelse
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
-</div>
 
+
+    <!-- Main Content -->
+
+
+    <div class="main">
+
+
+        <div class="d-flex justify-content-between mb-4">
+
+            <div>
+
+                <h2>
+                    Dashboard
+                </h2>
+
+                <p class="text-muted">
+                    Welcome to HR Management System
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <button class="btn btn-primary">
+
+                    <i class="fa fa-user"></i>
+
+                    {{ auth()->user()->name ?? 'Admin' }}
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- Cards -->
+
+
+        <div class="row">
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card-box bg-primary">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6>
+                                Employees
+                            </h6>
+
+                            <h2>
+                                {{ $totalEmployees }}
+                            </h2>
+
+                        </div>
+
+
+                        <i class="fa fa-users icon"></i>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card-box bg-success">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6>
+                                Departments
+                            </h6>
+
+                            <h2>
+                                {{ $totalDepartments }}
+                            </h2>
+
+                        </div>
+
+
+                        <i class="fa fa-building icon"></i>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card-box bg-warning">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6>
+                                Present Today
+                            </h6>
+
+                            <h2>
+                                {{ $presentToday }}
+                            </h2>
+
+                        </div>
+
+
+                        <i class="fa fa-check icon"></i>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card-box bg-danger">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6>
+                                Absent Today
+                            </h6>
+
+                            <h2>
+                                {{ $absentToday }}
+                            </h2>
+
+                        </div>
+
+
+                        <i class="fa fa-times icon"></i>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Tables -->
+
+
+        <div class="row mt-4">
+
+
+            <div class="col-md-6">
+
+
+                <div class="card shadow border-0">
+
+
+                    <div class="card-header bg-white">
+
+                        <h5>
+                            Recent Employees
+                        </h5>
+
+                    </div>
+
+
+
+                    <div class="card-body">
+
+
+                        <table class="table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Name</th>
+
+                                    <th>Department</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+
+                                @foreach ($recentEmployees as $employee)
+                                    <tr>
+
+                                        <td>
+                                            {{ $employee->name }}
+                                        </td>
+
+
+                                        <td>
+                                            {{ $employee->department->name ?? '-' }}
+                                        </td>
+
+
+                                    </tr>
+                                @endforeach
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-md-6">
+
+
+                <div class="card shadow border-0">
+
+
+                    <div class="card-header bg-white">
+
+                        <h5>
+                            Latest Notices
+                        </h5>
+
+                    </div>
+
+
+
+                    <div class="card-body">
+
+
+                        <table class="table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Title</th>
+
+                                    <th>Date</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+
+                                @foreach ($recentNotices as $notice)
+                                    <tr>
+
+                                        <td>
+                                            {{ $notice->title }}
+                                        </td>
+
+
+                                        <td>
+                                            {{ $notice->created_at->format('d M Y') }}
+                                        </td>
+
+
+                                    </tr>
+                                @endforeach
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
