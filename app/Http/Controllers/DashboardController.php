@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         $recentNotices = Notice::latest()->take(5)->get();
 
-        return view('dashboard.dashboard', compact(
+        return view('dashboard', compact(
             'totalEmployees',
             'totalDepartments',
             'totalDesignations',
