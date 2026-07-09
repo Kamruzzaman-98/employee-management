@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeController;
@@ -46,6 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
 
     Route::resource('permissions', PermissionController::class);
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
+    });
 });
 
 Route::middleware(['role:HR'])->prefix('hr')->group(function () {
