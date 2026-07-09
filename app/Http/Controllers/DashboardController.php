@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $totalDepartments = Department::count();
         $totalDesignations = Designation::count();
 
-        $presentToday = Attendance::whereDate('date', $today)->count();
+        $presentToday = Attendance::whereDate('attendance_date', $today)->count();
         $absentToday = $totalEmployees - $presentToday;
 
         $pendingLeaves = Leave::where('status', 'Pending')->count();
@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         $recentNotices = Notice::latest()->take(5)->get();
 
-        return view('dashboard', compact(
+        return view('dashboard.dashboard', compact(
             'totalEmployees',
             'totalDepartments',
             'totalDesignations',
