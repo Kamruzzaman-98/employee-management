@@ -84,4 +84,23 @@ class RoleController extends Controller
             'permissions'
         ));
     }
+
+
+    public function assignPermission(Request $request, Role $role)
+    {
+
+        $request->validate([
+            'permissions' => 'array'
+        ]);
+
+
+        $role->syncPermissions(
+            $request->permissions
+        );
+
+
+        return redirect()
+            ->route('roles.index')
+            ->with('success', 'Permission Updated Successfully');
+    }
 }
