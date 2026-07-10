@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -71,5 +72,16 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')
             ->with('success', 'Role Deleted Successfully');
+    }
+
+
+    public function givePermission(Role $role)
+    {
+        $permissions = Permission::all();
+
+        return view('roles.permissions', compact(
+            'role',
+            'permissions'
+        ));
     }
 }
