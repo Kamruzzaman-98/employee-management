@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('roles', RoleController::class);
 
+    Route::get('roles/{id}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
+
+    Route::post('roles/{id}/permissions', [RoleController::class, 'permissionsUpdate'])->name('roles.permissions.update');
+
     Route::resource('permissions', PermissionController::class);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -67,8 +71,5 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
     Route::resource('notices', NoticeController::class);
 });
 
-Route::get('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
-
-Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermission'])->name('roles.permissions.update');
 
 require __DIR__ . '/auth.php';

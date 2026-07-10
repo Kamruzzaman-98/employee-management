@@ -75,32 +75,24 @@ class RoleController extends Controller
     }
 
 
-    public function givePermission(Role $role)
+    public function permissions($id)
     {
+        $role = Role::findOrFail($id);
+
         $permissions = Permission::all();
 
-        return view('roles.permissions', compact(
-            'role',
-            'permissions'
-        ));
+        return view('roles.permissions', compact('role', 'permissions'));
     }
 
 
-    public function assignPermission(Request $request, Role $role)
+    public function permissionsUpdate(Request $request, $id)
     {
+        $role = Role::findOrFail($id);
 
-        $request->validate([
-            'permissions' => 'array'
-        ]);
-
-
-        $role->syncPermissions(
-            $request->permissions
-        );
-
+        $role->syncPermissions($request->permissions ?? []);
 
         return redirect()
             ->route('roles.index')
-            ->with('success', 'Permission Updated Successfully');
+            ->with('success', 'Permissions Assigned Successfully');
     }
 }

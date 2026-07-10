@@ -188,10 +188,12 @@
                                 Edit
                             </a>
 
+                            <a href="{{ route('roles.permissions', $role->id) }}" class="btn add-btn">
+                                Permission
+                            </a>
 
-
-
-                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST"
+                                style="display:inline;">
 
 
                                 @csrf
