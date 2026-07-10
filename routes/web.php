@@ -67,4 +67,8 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
     Route::resource('notices', NoticeController::class);
 });
 
+Route::get('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+
+Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermission'])->name('roles.permissions.update');
+
 require __DIR__ . '/auth.php';
