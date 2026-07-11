@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('departments', DepartmentController::class);
 Route::resource('employees', EmployeeController::class);
+
+Route::get('/employees/{id}/profile', [EmployeeController::class, 'profile'])->name('employees.profile');
+
 Route::resource('designations', DesignationController::class);
 Route::resource('leave-types', LeaveTypeController::class);
 Route::resource('leaves', LeaveController::class);

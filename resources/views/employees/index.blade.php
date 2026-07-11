@@ -75,6 +75,14 @@
             background: #ff9800;
         }
 
+        .pro-btn {
+            background: #218838;
+        }
+
+        .pro-btn:hover {
+            background: #28a745;
+        }
+
         .edit-btn:hover {
             background: #e68900;
         }
@@ -202,6 +210,9 @@
                         <td>{{ $employee->status }}</td>
 
                         <td>
+                            <a href="{{ route('employees.profile', $employee->id) }}" class="btn pro-btn">
+                                Profile
+                            </a>
                             <a href="{{ route('employees.edit', $employee->id) }}" class="btn edit-btn">Edit</a>
 
                             <form action="{{ route('employees.destroy', $employee->id) }}" method="POST"
