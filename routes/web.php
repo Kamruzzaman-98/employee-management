@@ -33,6 +33,8 @@ Route::resource('employees', EmployeeController::class);
 
 Route::get('/employees/{id}/profile', [EmployeeController::class, 'profile'])->name('employees.profile');
 
+Route::middleware(['auth'])->get('/my-profile', [EmployeeController::class, 'myProfile'])->name('my.profile');
+
 Route::resource('designations', DesignationController::class);
 Route::resource('leave-types', LeaveTypeController::class);
 Route::resource('leaves', LeaveController::class);
