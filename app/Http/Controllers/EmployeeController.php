@@ -247,4 +247,21 @@ class EmployeeController extends Controller
             compact('employee')
         );
     }
+
+    public function myProfile()
+    {
+        $employee = Employee::with([
+            'user',
+            'department',
+            'designation'
+        ])
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+
+        return view(
+            'employees.my-profile',
+            compact('employee')
+        );
+    }
 }
