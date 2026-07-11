@@ -232,4 +232,19 @@ class EmployeeController extends Controller
 
         return redirect()->route('employees.index')->with('success', 'Deleted successfully');
     }
+
+    public function profile($id)
+    {
+        $employee = Employee::with([
+            'user',
+            'department',
+            'designation'
+        ])->findOrFail($id);
+
+
+        return view(
+            'employees.profile',
+            compact('employee')
+        );
+    }
 }
