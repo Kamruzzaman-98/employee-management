@@ -1,183 +1,88 @@
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
 }
 
+
 body{
-    display:flex;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f5f6fa;
+
+    background:#f5f7fb;
+    font-family:Arial, sans-serif;
+
 }
+
+
+/* Main Wrapper */
+
+.wrapper{
+
+    display:flex;
+
+}
+
+
 
 /* Sidebar */
 
 .sidebar{
 
-    width:250px;
+    width:260px;
+
     min-height:100vh;
-    background:#1e293b;
-    color:white;
+
+    background:#111827;
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
 
 }
 
-.sidebar h2{
 
-    padding:20px;
-    text-align:center;
-    background:#0f172a;
-
-}
-
-.sidebar ul{
-
-    list-style:none;
-
-}
-
-.sidebar ul li{
-
-    border-bottom:1px solid #334155;
-
-}
-
-.sidebar ul li a{
-
-    display:block;
-    color:white;
-    text-decoration:none;
-    padding:15px 20px;
-
-}
-
-.sidebar ul li a:hover{
-
-    background:#2563eb;
-
-}
-
-/* Main */
+/* Main Area */
 
 .main{
 
-    width:100%;
+    margin-left:260px;
+
+    width:calc(100% - 260px);
 
 }
 
-/* Navbar */
 
-.navbar{
-
-    height:60px;
-    background:white;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:0 20px;
-
-    box-shadow:0 2px 5px rgba(0,0,0,.1);
-
-}
 
 /* Content */
 
 .content{
 
+    padding:25px;
+
+}
+
+
+
+/* Dashboard Card */
+
+.card-box{
+
+    border-radius:15px;
+
     padding:20px;
-    min-height:calc(100vh - 120px);
 
-}
-
-/* Footer */
-
-.footer{
-
-    height:60px;
-    background:white;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    border-top:1px solid #ddd;
-
-}
-
-
-.container{
-
-    background:white;
-    padding:20px;
-    border-radius:8px;
-
-}
-
-
-table{
-
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-
-}
-
-
-table,
-th,
-td{
-
-    border:1px solid #ddd;
-
-}
-
-
-th,
-td{
-
-    padding:10px;
-    text-align:center;
-
-}
-
-
-th{
-
-    background:#333;
     color:white;
 
-}
-
-
-.btn{
-
-    padding:6px 10px;
-    text-decoration:none;
-    border-radius:4px;
-    color:white;
-    border:none;
-    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
 
 }
 
 
-.add-btn{
+.icon{
 
-    background:green;
-
-}
-
-
-.edit-btn{
-
-    background:orange;
-
-}
-
-
-.delete-btn{
-
-    background:red;
+    font-size:35px;
 
 }

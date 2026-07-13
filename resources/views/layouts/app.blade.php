@@ -4,35 +4,63 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Employee Management System</title>
+    <title>EMS Dashboard</title>
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
 
 </head>
 
+
 <body>
 
-    {{-- Sidebar --}}
-    @include('partials.sidebar')
 
-    <div class="main">
+    <div class="wrapper">
 
-        {{-- Navbar --}}
-        @include('partials.navbar')
 
-        {{-- Page Content --}}
-        <div class="content">
+        @include('partials.sidebar')
 
-            @yield('content')
+
+        <div class="main">
+
+
+            @include('partials.navbar')
+
+
+            <div class="content">
+
+
+                @yield('content')
+
+
+            </div>
+
+
+            @include('partials.footer')
+
 
         </div>
 
-        {{-- Footer --}}
-        @include('partials.footer')
 
     </div>
+
+
 
 </body>
 
