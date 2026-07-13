@@ -104,3 +104,80 @@ body{
     border-top:1px solid #ddd;
 
 }
+
+
+.container{
+
+    background:white;
+    padding:20px;
+    border-radius:8px;
+
+}
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+
+}
+
+
+table,
+th,
+td{
+
+    border:1px solid #ddd;
+
+}
+
+
+th,
+td{
+
+    padding:10px;
+    text-align:center;
+
+}
+
+
+th{
+
+    background:#333;
+    color:white;
+
+}
+
+
+.btn{
+
+    padding:6px 10px;
+    text-decoration:none;
+    border-radius:4px;
+    color:white;
+    border:none;
+    cursor:pointer;
+
+}
+
+
+.add-btn{
+
+    background:green;
+
+}
+
+
+.edit-btn{
+
+    background:orange;
+
+}
+
+
+.delete-btn{
+
+    background:red;
+
+}

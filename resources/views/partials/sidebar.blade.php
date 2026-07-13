@@ -20,9 +20,9 @@
             <a href="{{ route('employees.index') }}">Employees</a>
         </li>
 
-        <li>
+        {{-- <li>
             <a href="{{ route('attendances.index') }}">Attendance</a>
-        </li>
+        </li> --}}
 
         <li>
             <a href="{{ route('leaves.index') }}">Leaves</a>
@@ -36,13 +36,13 @@
             <a href="{{ route('notices.index') }}">Notice</a>
         </li>
 
-        <li>
+        {{-- <li>
             <a href="{{ route('payrolls.index') }}">Payroll</a>
-        </li>
+        </li> --}}
 
-        <li>
+        {{-- <li>
             <a href="{{ route('reports.index') }}">Reports</a>
-        </li>
+        </li> --}}
 
     </ul>
 
