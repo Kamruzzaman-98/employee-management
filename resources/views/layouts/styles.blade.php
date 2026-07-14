@@ -187,4 +187,247 @@
 
     }
 
+
+    /* Department Page */
+
+
+    .card {
+
+        background: white;
+
+        border-radius: 15px;
+
+        padding: 25px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    }
+
+
+    /* Header */
+
+
+    .card-header {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .card-header h2 {
+
+        font-size: 24px;
+
+        color: #1f2937;
+
+        margin-bottom: 5px;
+
+    }
+
+
+    .card-header p {
+
+        color: #6b7280;
+
+        font-size: 14px;
+
+    }
+
+
+
+    /* Add Button */
+
+
+    .add-btn {
+
+        background: #2563eb;
+
+        color: white;
+
+        padding: 12px 20px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: 500;
+
+        transition: .3s;
+
+    }
+
+
+    .add-btn:hover {
+
+        background: #1d4ed8;
+
+    }
+
+
+
+    /* Table */
+
+
+    .table-wrapper {
+
+        overflow-x: auto;
+
+    }
+
+
+    .custom-table {
+
+        width: 100%;
+
+        border-collapse: collapse;
+
+    }
+
+
+
+    .custom-table thead {
+
+        background: #f1f5f9;
+
+    }
+
+
+
+    .custom-table th {
+
+        padding: 15px;
+
+        text-align: left;
+
+        color: #475569;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .custom-table td {
+
+        padding: 15px;
+
+        border-bottom: 1px solid #e5e7eb;
+
+        color: #374151;
+
+    }
+
+
+
+    .custom-table tbody tr:hover {
+
+        background: #f8fafc;
+
+    }
+
+
+
+    /* Department Name */
+
+
+    .department-name {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        font-weight: 600;
+
+    }
+
+
+    .icon {
+
+        width: 35px;
+
+        height: 35px;
+
+        background: #dbeafe;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+    }
+
+
+
+    /* Action Button */
+
+
+    .action-btn {
+
+        padding: 8px 14px;
+
+        border-radius: 7px;
+
+        text-decoration: none;
+
+        border: none;
+
+        cursor: pointer;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .action-btn.edit {
+
+        background: #fef3c7;
+
+        color: #92400e;
+
+    }
+
+
+
+    .action-btn.delete {
+
+        background: #fee2e2;
+
+        color: #b91c1c;
+
+    }
+
+
+
+    .action-btn:hover {
+
+        opacity: .8;
+
+    }
+
+
+
+    /* Empty */
+
+
+    .empty {
+
+        text-align: center;
+
+        padding: 30px;
+
+        color: #9ca3af;
+
+    }
 </style>

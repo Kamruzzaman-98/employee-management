@@ -1,81 +1,148 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="card">
 
-<div class="container">
+        <!-- Header -->
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <div class="card-header">
 
-        <h2>Department List</h2>
+            <div>
+                <h2>Department Management</h2>
+                <p>Manage all company departments</p>
+            </div>
 
-        <a href="{{ route('departments.create') }}" class="btn add-btn">
-            + Add Department
-        </a>
+
+            <a href="{{ route('departments.create') }}" class="add-btn">
+
+                + Add Department
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- Table -->
+
+        <div class="table-wrapper">
+
+
+            <table class="custom-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th width="80">ID</th>
+
+                        <th>Department Name</th>
+
+                        <th width="200">Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    @forelse($departments as $department)
+                        <tr>
+
+
+                            <td>
+
+                                {{ $department->id }}
+
+                            </td>
+
+
+                            <td>
+
+                                <div class="department-name">
+
+                                    <div class="icon">
+
+                                        🏢
+
+                                    </div>
+
+                                    <span>
+
+                                        {{ $department->name }}
+
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <td>
+
+
+                                <a href="{{ route('departments.edit', $department->id) }}" class="action-btn edit">
+
+                                    ✏ Edit
+
+                                </a>
+
+
+
+                                <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
+                                    style="display:inline;">
+
+
+                                    @csrf
+
+                                    @method('DELETE')
+
+
+                                    <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                        🗑 Delete
+
+                                    </button>
+
+
+                                </form>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    @empty
+
+
+                        <tr>
+
+                            <td colspan="3" class="empty">
+
+                                No Department Found
+
+                            </td>
+
+                        </tr>
+                    @endforelse
+
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
 
     </div>
-
-    <table>
-
-        <thead>
-
-        <tr>
-
-            <th>ID</th>
-
-            <th>Name</th>
-
-            <th width="180">Action</th>
-
-        </tr>
-
-        </thead>
-
-        <tbody>
-
-        @foreach ($departments as $department)
-
-        <tr>
-
-            <td>{{ $department->id }}</td>
-
-            <td>{{ $department->name }}</td>
-
-            <td>
-
-                <a href="{{ route('departments.edit',$department->id) }}" class="btn edit-btn">
-
-                    Edit
-
-                </a>
-
-                <form action="{{ route('departments.destroy',$department->id) }}"
-                    method="POST"
-                    style="display:inline;">
-
-                    @csrf
-
-                    @method('DELETE')
-
-                    <button
-                        class="btn delete-btn"
-                        onclick="return confirm('Are you sure?')">
-
-                        Delete
-
-                    </button>
-
-                </form>
-
-            </td>
-
-        </tr>
-
-        @endforeach
-
-        </tbody>
-
-    </table>
-
-</div>
-
 @endsection
