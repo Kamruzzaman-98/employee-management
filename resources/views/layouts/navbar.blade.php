@@ -1,15 +1,47 @@
 <div class="navbar">
 
-    <h3>Employee Management System</h3>
+    <div class="nav-left">
 
-    <div>
+        <h4>
+            Employee Management System
+        </h4>
+
+    </div>
+
+
+
+    <div class="nav-right">
+
 
         @auth
 
-            {{ auth()->user()->name }}
+            <div class="user-info">
+
+
+                <div class="user-avatar">
+
+                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+
+                </div>
+
+
+                <div class="user-details">
+
+                    <strong>
+                        {{ auth()->user()->name }}
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
 
         @endauth
 
+
     </div>
+
 
 </div>

@@ -8,8 +8,7 @@
         <div class="card-header">
 
             <div>
-                <h2>Department Management</h2>
-                <p>Manage all company departments</p>
+                <h3>Department Management</h3>
             </div>
 
 
