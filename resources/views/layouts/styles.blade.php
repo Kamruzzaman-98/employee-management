@@ -62,7 +62,11 @@
     }
 
     .wrapper {
+
         display: flex;
+
+        min-height: 100vh;
+
     }
 
     /* Sidebar */
@@ -155,7 +159,13 @@
 
         margin-left: 260px;
 
-        width: 100%;
+        width: calc(100% - 260px);
+
+        min-height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
 
     }
 
@@ -172,6 +182,8 @@
     .page-content {
 
         padding: 25px;
+
+        flex: 1;
 
     }
 
@@ -428,6 +440,22 @@
         padding: 30px;
 
         color: #9ca3af;
+
+    }
+
+    .footer {
+
+        background: white;
+
+        padding: 15px;
+
+        text-align: center;
+
+        color: #64748b;
+
+        border-top: 1px solid #e5e7eb;
+
+        margin-top: auto;
 
     }
 </style>
