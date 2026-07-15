@@ -599,6 +599,63 @@
 
     }
 
-    
 
+    .form-wrapper {
+        max-width: 500px;
+    }
+
+
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+
+
+    .button-group {
+        margin-top: 20px;
+    }
+
+
+
+    .btn {
+        padding: 10px 18px;
+        border-radius: 6px;
+        border: none;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+
+
+    .save-btn {
+        background: #16a34a;
+    }
+
+
+
+    .back-btn {
+        background: #333;
+        margin-left: 10px;
+    }
 </style>

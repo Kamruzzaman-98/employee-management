@@ -1,99 +1,75 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Add Department</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
 
-        .container {
-            width: 500px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-        }
+        <!-- Header -->
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        <div class="card-header">
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .button-group {
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 10px 15px;
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .save-btn {
-            background: green;
-        }
-
-        .back-btn {
-            background: #333;
-            margin-left: 10px;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div class="container">
-
-        <h2>Add Department</h2>
-
-        <form action="{{ route('departments.store') }}" method="POST">
-
-            @csrf
-
-            <label>Department Name</label>
-
-            <input type="text" name="name" placeholder="Enter Department Name">
-
-            <div class="button-group">
-
-                <button type="submit" class="btn save-btn">
-                    Save Department
-                </button>
-
-                <a href="{{ route('departments.index') }}" class="btn back-btn">
-                    Back
-                </a>
-
+            <div>
+                <h3>Add Department</h3>
             </div>
 
-        </form>
+
+        </div>
+
+
+
+        <!-- Form -->
+
+        <div class="form-wrapper">
+
+
+            <form action="{{ route('departments.store') }}" method="POST">
+
+
+                @csrf
+
+
+                <div class="form-group">
+
+
+                    <label>
+                        Department Name
+                    </label>
+
+
+                    <input type="text" name="name" placeholder="Enter Department Name">
+
+
+                </div>
+
+
+
+                <div class="button-group">
+
+
+                    <button type="submit" class="btn save-btn">
+
+                        Save Department
+
+                    </button>
+
+
+
+                    <a href="{{ route('departments.index') }}" class="btn back-btn">
+
+                        Back
+
+                    </a>
+
+
+                </div>
+
+
+
+            </form>
+
+
+        </div>
+
 
     </div>
-
-</body>
-
-</html>
+@endsection
