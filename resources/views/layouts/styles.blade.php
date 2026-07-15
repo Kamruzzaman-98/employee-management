@@ -678,4 +678,31 @@
     .status.inactive {
         background: #dc2626;
     }
+
+    .form-wrapper {
+        max-width: 600px;
+    }
+
+
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+
+    .error {
+        color: #dc2626;
+        font-size: 14px;
+        margin-top: 5px;
+    }
 </style>
