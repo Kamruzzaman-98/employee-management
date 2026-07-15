@@ -1,117 +1,230 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-
-    <title>
-        Employee Profile
-    </title>
-
-</head>
+@section('content')
+    <div class="card">
 
 
-<body>
+        <!-- Header -->
+
+        <div class="card-header">
+
+            <div>
+                <h3>Employee Profile</h3>
+            </div>
 
 
-    <div class="container">
+            <a href="{{ route('employees.index') }}" class="back-btn btn">
 
+                ← Back
 
-        <h2>
-            Employee Profile
-        </h2>
+            </a>
 
-
-
-        @if ($employee->image)
-            <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="120">
-        @endif
+        </div>
 
 
 
-        <h3>
-            {{ $employee->user->name }}
-        </h3>
 
 
-        <p>
-            Email:
+        <!-- Profile Content -->
 
-            {{ $employee->user->email }}
-
-        </p>
-
-
-        <p>
-            Phone:
-
-            {{ $employee->user->phone }}
-
-        </p>
+        <div class="profile-wrapper">
 
 
 
-        <p>
-            Employee ID:
-
-            {{ $employee->employee_code }}
-
-        </p>
+            <div class="profile-header">
 
 
-        <p>
-            Department:
+                @if ($employee->image)
+                    <img src="{{ asset('uploads/employees/' . $employee->image) }}" class="profile-image">
+                @else
+                    <div class="profile-placeholder">
 
-            {{ $employee->department->name }}
+                        👤
 
-        </p>
-
-
-        <p>
-            Designation:
-
-            {{ $employee->designation->name }}
-
-        </p>
+                    </div>
+                @endif
 
 
 
-        <p>
-            Salary:
 
-            {{ $employee->salary }}
+                <div>
 
-        </p>
-
-
-        <p>
-            Joining Date:
-
-            {{ $employee->joining_date }}
-
-        </p>
+                    <h2>
+                        {{ $employee->user->name }}
+                    </h2>
 
 
+                    <span class="status-badge">
 
-        <p>
-            Address:
+                        {{ ucfirst($employee->status) }}
 
-            {{ $employee->address }}
-
-        </p>
+                    </span>
 
 
-        <p>
-            Status:
+                </div>
 
-            {{ $employee->status }}
 
-        </p>
+            </div>
+
+
+
+
+
+
+
+            <div class="profile-table">
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Email
+                    </div>
+
+                    <div>
+                        {{ $employee->user->email }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Phone
+                    </div>
+
+                    <div>
+                        {{ $employee->user->phone }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Employee ID
+                    </div>
+
+                    <div>
+                        {{ $employee->employee_code }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Department
+                    </div>
+
+                    <div>
+                        {{ $employee->department->name ?? 'N/A' }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Designation
+                    </div>
+
+                    <div>
+                        {{ $employee->designation->name ?? 'N/A' }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Salary
+                    </div>
+
+                    <div>
+                        {{ $employee->salary }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Joining Date
+                    </div>
+
+                    <div>
+                        {{ $employee->joining_date }}
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="profile-row">
+
+                    <div class="profile-label">
+                        Address
+                    </div>
+
+                    <div>
+                        {{ $employee->address }}
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
+            <div class="profile-actions">
+
+
+                <a href="{{ route('employees.edit', $employee->id) }}" class="btn update-btn">
+
+                    ✏ Edit Profile
+
+                </a>
+
+
+            </div>
+
+
+
+        </div>
 
 
 
     </div>
-
-
-</body>
-
-</html>
+@endsection

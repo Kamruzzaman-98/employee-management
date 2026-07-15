@@ -863,4 +863,81 @@
         background: #f59e0b;
         color: #000;
     }
+
+    .profile-wrapper {
+        padding: 20px;
+    }
+
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #eee;
+    }
+
+
+    .profile-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 45px;
+    }
+
+
+    .status-badge {
+        background: #28a745;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+
+
+    .profile-table {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+
+    .profile-row {
+        display: grid;
+        grid-template-columns: 220px auto;
+        border-bottom: 1px solid #ddd;
+    }
+
+
+    .profile-row:last-child {
+        border-bottom: none;
+    }
+
+
+    .profile-row div {
+        padding: 12px;
+    }
+
+
+    .profile-label {
+        background: #f8f9fa;
+        font-weight: bold;
+    }
+
+
+    .profile-actions {
+        margin-top: 20px;
+    }
 </style>
