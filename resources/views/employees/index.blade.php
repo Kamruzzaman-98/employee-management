@@ -1,237 +1,334 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Employee List</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+@section('content')
+    <div class="card">
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        <!-- Header -->
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+        <div class="card-header">
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
+            <div>
+                <h3>Employee Management</h3>
+            </div>
 
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
 
-        th {
-            background: #333;
-            color: white;
-        }
+            <a href="{{ route('employees.create') }}" class="add-btn">
 
-        img {
-            border-radius: 50%;
-        }
+                + Add Employee
 
-        /* Buttons */
-        .btn {
-            padding: 8px 14px;
-            text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-block;
-        }
+            </a>
 
-        .add-btn {
-            background: #28a745;
-        }
 
-        .add-btn:hover {
-            background: #218838;
-        }
-
-        .edit-btn {
-            background: #ff9800;
-        }
-
-        .pro-btn {
-            background: #218838;
-        }
-
-        .pro-btn:hover {
-            background: #28a745;
-        }
-
-        .edit-btn:hover {
-            background: #e68900;
-        }
-
-        .delete-btn {
-            background: #dc3545;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-        }
-
-        .filter-form {
-            margin-top: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .filter-form input,
-        .filter-form select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .filter-btn {
-            background: #007bff;
-        }
-
-        .filter-btn:hover {
-            background: #0069d9;
-        }
-
-        .reset-btn {
-            background: #6c757d;
-        }
-
-        .reset-btn:hover {
-            background: #5a6268;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="top-bar">
-            <h2>Employee List</h2>
-
-            <a href="{{ route('employees.create') }}" class="btn add-btn">+ Add Employee</a>
         </div>
+
+
+
+
+        <!-- Filter -->
 
         <form method="GET" action="{{ route('employees.index') }}" class="filter-form">
 
+
             <input type="text" name="search" placeholder="Search Name or Code" value="{{ request('search') }}">
 
+
+
             <select name="department_id">
-                <option value="">All Department</option>
+
+                <option value="">
+                    All Department
+                </option>
+
+
                 @foreach ($departments as $dept)
                     <option value="{{ $dept->id }}" {{ request('department_id') == $dept->id ? 'selected' : '' }}>
+
                         {{ $dept->name }}
+
                     </option>
                 @endforeach
+
+
             </select>
+
+
+
 
             <select name="designation_id">
-                <option value="">All Designation</option>
+
+                <option value="">
+                    All Designation
+                </option>
+
+
                 @foreach ($designations as $desig)
                     <option value="{{ $desig->id }}" {{ request('designation_id') == $desig->id ? 'selected' : '' }}>
+
                         {{ $desig->name }}
+
                     </option>
                 @endforeach
+
+
             </select>
 
-            <button type="submit" class="btn filter-btn">Filter</button>
 
-            <a href="{{ route('employees.index') }}" class="btn reset-btn">Reset</a>
+
+
+            <button type="submit" class="btn filter-btn">
+
+                Filter
+
+            </button>
+
+
+
+            <a href="{{ route('employees.index') }}" class="btn reset-btn">
+
+                Reset
+
+            </a>
+
 
         </form>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Department</th>
-                    <th>Designation</th>
-                    <th>Salary</th>
-                    <th>DOB</th>
-                    <th>Joining Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
 
-            <tbody>
-                @foreach ($employees as $employee)
+
+
+
+        <!-- Table -->
+
+        <div class="table-wrapper">
+
+
+            <table class="custom-table">
+
+
+                <thead>
+
                     <tr>
-                        <td>{{ $employee->employee_code }}</td>
-                        <td>{{ $employee->user->name }}</td>
-                        <td>
-                            @if ($employee->image)
-                                <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="50"
-                                    height="50">
-                            @else
-                                N/A
-                            @endif
-                        </td>
 
-                        <td>{{ $employee->user->email }}</td>
-                        <td>{{ $employee->user->phone }}</td>
-                        <td>{{ $employee->address }}</td>
-                        <td>{{ $employee->department->name }}</td>
-                        <td>{{ $employee->designation->name }}</td>
-                        <td>{{ $employee->salary }}</td>
-                        <td>{{ $employee->date_of_birth }}</td>
-                        <td>{{ $employee->joining_date }}</td>
-                        <td>{{ $employee->status }}</td>
+                        <th>Code</th>
 
-                        <td>
-                            <a href="{{ route('employees.profile', $employee->id) }}" class="btn pro-btn">
-                                Profile
-                            </a>
-                            <a href="{{ route('employees.edit', $employee->id) }}" class="btn edit-btn">Edit</a>
+                        <th>Name</th>
 
-                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST"
-                                style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn delete-btn" onclick="return confirm('Are you sure?')">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
+                        <th>Image</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                        <th>Department</th>
+
+                        <th>Designation</th>
+
+                        <th>Salary</th>
+
+                        <th>Status</th>
+
+                        <th width="220">Action</th>
+
                     </tr>
-                @endforeach
-            </tbody>
 
-        </table>
+                </thead>
+
+
+
+
+                <tbody>
+
+
+                    @forelse($employees as $employee)
+                        <tr>
+
+
+                            <td>
+
+                                {{ $employee->employee_code }}
+
+                            </td>
+
+
+
+
+                            <td>
+
+                                <div class="department-name">
+
+                                    <div class="icon">
+
+                                        👤
+
+                                    </div>
+
+
+                                    <span>
+
+                                        {{ $employee->user->name }}
+
+                                    </span>
+
+
+                                </div>
+
+                            </td>
+
+
+
+
+
+                            <td>
+
+
+                                @if ($employee->image)
+                                    <img src="{{ asset('uploads/employees/' . $employee->image) }}" width="45"
+                                        height="45" class="employee-img">
+                                @else
+                                    N/A
+                                @endif
+
+
+                            </td>
+
+
+
+
+
+                            <td>
+
+                                {{ $employee->user->email }}
+
+                            </td>
+
+
+
+
+                            <td>
+
+                                {{ $employee->user->phone }}
+
+                            </td>
+
+
+
+
+                            <td>
+
+                                {{ $employee->department->name }}
+
+                            </td>
+
+
+
+
+                            <td>
+
+                                {{ $employee->designation->name }}
+
+                            </td>
+
+
+
+
+                            <td>
+
+                                {{ $employee->salary }}
+
+                            </td>
+
+
+
+
+
+                            <td>
+
+
+                                <span class="status {{ $employee->status ? 'active' : 'inactive' }}">
+
+                                    {{ $employee->status ? 'Active' : 'Inactive' }}
+
+                                </span>
+
+
+                            </td>
+
+
+
+
+
+                            <td>
+
+
+                                <a href="{{ route('employees.profile', $employee->id) }}" class="action-btn view">
+
+                                    👤 Profile
+
+                                </a>
+
+
+
+
+                                <a href="{{ route('employees.edit', $employee->id) }}" class="action-btn edit">
+
+                                    ✏ Edit
+
+                                </a>
+
+
+
+
+
+                                <form action="{{ route('employees.destroy', $employee->id) }}" method="POST"
+                                    style="display:inline;">
+
+
+                                    @csrf
+
+                                    @method('DELETE')
+
+
+
+                                    <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                        🗑 Delete
+
+                                    </button>
+
+
+                                </form>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    @empty
+
+
+                        <tr>
+
+                            <td colspan="10" class="empty">
+
+                                No Employee Found
+
+                            </td>
+
+                        </tr>
+                    @endforelse
+
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
 
     </div>
-
-</body>
-
-</html>
+@endsection
