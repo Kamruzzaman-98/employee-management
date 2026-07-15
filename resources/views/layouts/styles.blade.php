@@ -660,7 +660,7 @@
     .update-btn {
         background: #f59e0b;
     }
-    
+
 
     .status {
         padding: 5px 12px;
@@ -755,6 +755,40 @@
         font-size: 14px;
         margin-top: 5px;
     }
+
+    .details-wrapper {
+    width: 100%;
+}
+
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.details-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+
+.details-table td:first-child {
+    width: 220px;
+    font-weight: bold;
+    background: #f8fafc;
+}
+
+
+.back-btn {
+    background: #333;
+}
+
+
+.back-btn:hover {
+    background: #111;
+}
 
 
 </style>

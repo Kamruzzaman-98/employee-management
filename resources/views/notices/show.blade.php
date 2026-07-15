@@ -1,141 +1,172 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Notice Details</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
-        }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, .1);
-        }
+        <!-- Header -->
 
-        h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        <div class="card-header">
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+            <div>
+                <h3>Notice Details</h3>
+            </div>
 
-        table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            vertical-align: top;
-        }
 
-        table td:first-child {
-            width: 220px;
-            font-weight: bold;
-            background: #f8f9fa;
-        }
+            <a href="{{ route('notices.index') }}" class="back-btn btn">
 
-        .badge {
-            padding: 6px 12px;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 14px;
-        }
+                ← Back to List
 
-        .active {
-            background: green;
-        }
+            </a>
 
-        .inactive {
-            background: red;
-        }
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 18px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+        </div>
 
-        .btn:hover {
-            background: #0056b3;
-        }
-    </style>
 
-</head>
 
-<body>
+        <!-- Details -->
 
-    <div class="container">
+        <div class="details-wrapper">
 
-        <h2>Notice Details</h2>
 
-        <table>
+            <table class="details-table">
 
-            <tr>
-                <td>Title</td>
-                <td>{{ $notice->title }}</td>
-            </tr>
 
-            <tr>
-                <td>Description</td>
-                <td>{!! nl2br(e($notice->description)) !!}</td>
-            </tr>
+                <tr>
 
-            <tr>
-                <td>Publish Date</td>
-                <td>{{ \Carbon\Carbon::parse($notice->publish_date)->format('d M Y') }}</td>
-            </tr>
+                    <td>
+                        Title
+                    </td>
 
-            <tr>
-                <td>Expire Date</td>
-                <td>
-                    {{ $notice->expire_date ? \Carbon\Carbon::parse($notice->expire_date)->format('d M Y') : 'N/A' }}
-                </td>
-            </tr>
+                    <td>
+                        {{ $notice->title }}
+                    </td>
 
-            <tr>
-                <td>Status</td>
-                <td>
-                    <span class="badge {{ $notice->status ? 'active' : 'inactive' }}">
-                        {{ $notice->status ? 'Active' : 'Inactive' }}
-                    </span>
-                </td>
-            </tr>
+                </tr>
 
-            <tr>
-                <td>Created By</td>
-                <td>{{ $notice->creator->name ?? 'N/A' }}</td>
-            </tr>
 
-            <tr>
-                <td>Created At</td>
-                <td>{{ $notice->created_at->format('d M Y h:i A') }}</td>
-            </tr>
 
-            <tr>
-                <td>Updated At</td>
-                <td>{{ $notice->updated_at->format('d M Y h:i A') }}</td>
-            </tr>
+                <tr>
 
-        </table>
+                    <td>
+                        Description
+                    </td>
 
-        <a href="{{ route('notices.index') }}" class="btn">
-            ← Back to List
-        </a>
+                    <td>
+                        {!! nl2br(e($notice->description)) !!}
+                    </td>
+
+                </tr>
+
+
+
+
+                <tr>
+
+                    <td>
+                        Publish Date
+                    </td>
+
+                    <td>
+                        {{ \Carbon\Carbon::parse($notice->publish_date)->format('d M Y') }}
+                    </td>
+
+                </tr>
+
+
+
+
+
+                <tr>
+
+                    <td>
+                        Expire Date
+                    </td>
+
+                    <td>
+
+                        {{ $notice->expire_date ? \Carbon\Carbon::parse($notice->expire_date)->format('d M Y') : 'N/A' }}
+
+                    </td>
+
+                </tr>
+
+
+
+
+
+                <tr>
+
+                    <td>
+                        Status
+                    </td>
+
+                    <td>
+
+                        <span class="status {{ $notice->status ? 'active' : 'inactive' }}">
+
+                            {{ $notice->status ? 'Active' : 'Inactive' }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+
+
+
+                <tr>
+
+                    <td>
+                        Created By
+                    </td>
+
+                    <td>
+                        {{ $notice->creator->name ?? 'N/A' }}
+                    </td>
+
+                </tr>
+
+
+
+
+
+                <tr>
+
+                    <td>
+                        Created At
+                    </td>
+
+                    <td>
+                        {{ $notice->created_at->format('d M Y h:i A') }}
+                    </td>
+
+                </tr>
+
+
+
+
+
+                <tr>
+
+                    <td>
+                        Updated At
+                    </td>
+
+                    <td>
+                        {{ $notice->updated_at->format('d M Y h:i A') }}
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+
+        </div>
+
 
     </div>
-
-</body>
-
-</html>
+@endsection
