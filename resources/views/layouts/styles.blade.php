@@ -940,4 +940,124 @@
     .profile-actions {
         margin-top: 20px;
     }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+
+    .user-btn {
+        background: #2563eb;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 8px;
+    }
+
+
+
+    .dashboard-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+
+
+    .dashboard-card {
+        padding: 20px;
+        border-radius: 12px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+
+    .dashboard-card h6 {
+        margin: 0;
+        font-size: 14px;
+    }
+
+
+
+    .dashboard-card h2 {
+        margin-top: 10px;
+    }
+
+
+
+    .dashboard-icon {
+        font-size: 40px;
+        opacity: .8;
+    }
+
+
+
+    .primary {
+        background: #2563eb;
+    }
+
+
+    .success {
+        background: #16a34a;
+    }
+
+
+    .warning {
+        background: #f59e0b;
+    }
+
+
+    .danger {
+        background: #dc2626;
+    }
+
+
+
+
+
+    .dashboard-table-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 25px;
+    }
+
+
+
+    .dashboard-panel {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    }
+
+
+
+    .panel-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+
+
+    .panel-header h5 {
+        margin: 0;
+    }
+
+
+
+    .panel-body {
+        padding: 15px;
+    }
+
+
+
+    .text-muted {
+        color: #6b7280;
+    }
 </style>
