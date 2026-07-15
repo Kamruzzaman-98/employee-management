@@ -851,4 +851,16 @@
     .row .form-group {
         flex: 1;
     }
+
+
+    .employee-preview {
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+
+    .update-btn {
+        background: #f59e0b;
+        color: #000;
+    }
 </style>
