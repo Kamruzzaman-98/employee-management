@@ -727,4 +727,31 @@
     small {
         color: #666;
     }
+
+    .row {
+        display: flex;
+        gap: 15px;
+    }
+
+
+    .row .form-group {
+        flex: 1;
+    }
+
+
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+
+    .error {
+        color: #dc2626;
+        font-size: 14px;
+        margin-top: 5px;
+    }
 </style>
