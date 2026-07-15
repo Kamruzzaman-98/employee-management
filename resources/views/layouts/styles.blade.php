@@ -660,6 +660,7 @@
     .update-btn {
         background: #f59e0b;
     }
+    
 
     .status {
         padding: 5px 12px;
@@ -754,4 +755,6 @@
         font-size: 14px;
         margin-top: 5px;
     }
+
+
 </style>
