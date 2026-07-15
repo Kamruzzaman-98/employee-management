@@ -658,4 +658,8 @@
         background: #333;
         margin-left: 10px;
     }
+
+    .update-btn {
+        background: #f59e0b;
+    }
 </style>
