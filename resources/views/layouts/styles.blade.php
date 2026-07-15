@@ -705,4 +705,26 @@
         font-size: 14px;
         margin-top: 5px;
     }
+
+    .desc {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    .action-btn.view {
+        background: #0891b2;
+    }
+
+
+    .action-btn.view:hover {
+        background: #0e7490;
+    }
+
+
+    small {
+        color: #666;
+    }
 </style>
