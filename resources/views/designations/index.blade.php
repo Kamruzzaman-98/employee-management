@@ -1,129 +1,148 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Designation List</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
+        <!-- Header -->
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+        <div class="card-header">
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
+            <div>
+                <h3>Designation Management</h3>
+            </div>
 
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
 
-        th {
-            background: #333;
-            color: white;
-        }
+            <a href="{{ route('designations.create') }}" class="add-btn">
 
-        .btn {
-            padding: 6px 10px;
-            text-decoration: none;
-            border-radius: 4px;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+                + Add Designation
 
-        .add-btn {
-            background: green;
-        }
+            </a>
 
-        .edit-btn {
-            background: orange;
-        }
 
-        .delete-btn {
-            background: red;
-        }
-    </style>
+        </div>
 
-</head>
 
-<body>
 
-    <div class="container">
+        <!-- Table -->
 
-        <h2>Designation List</h2>
+        <div class="table-wrapper">
 
-        <a href="{{ route('designations.create') }}" class="btn add-btn">
-            + Add Designation
-        </a>
 
-        <table>
+            <table class="custom-table">
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th width="180">Action</th>
-                </tr>
-            </thead>
 
-            <tbody>
+                <thead>
 
-                @foreach ($designations as $designation)
                     <tr>
 
-                        <td>{{ $designation->id }}</td>
+                        <th width="80">ID</th>
 
-                        <td>{{ $designation->name }}</td>
+                        <th>Designation Name</th>
 
-                        <td>
-
-                            <a href="{{ route('designations.edit', $designation->id) }}" class="btn edit-btn">
-                                Edit
-                            </a>
-
-                            <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
-                                style="display:inline;">
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn delete-btn" onclick="return confirm('Are you sure?')">
-
-                                    Delete
-
-                                </button>
-
-                            </form>
-
-                        </td>
+                        <th width="200">Action</th>
 
                     </tr>
-                @endforeach
 
-            </tbody>
+                </thead>
 
-        </table>
+
+                <tbody>
+
+
+                    @forelse($designations as $designation)
+                        <tr>
+
+
+                            <td>
+
+                                {{ $designation->id }}
+
+                            </td>
+
+
+                            <td>
+
+                                <div class="department-name">
+
+                                    <div class="icon">
+
+                                        💼
+
+                                    </div>
+
+                                    <span>
+
+                                        {{ $designation->name }}
+
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <td>
+
+
+                                <a href="{{ route('designations.edit', $designation->id) }}" class="action-btn edit">
+
+                                    ✏ Edit
+
+                                </a>
+
+
+
+                                <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
+                                    style="display:inline;">
+
+
+                                    @csrf
+
+                                    @method('DELETE')
+
+
+                                    <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                        🗑 Delete
+
+                                    </button>
+
+
+                                </form>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    @empty
+
+
+                        <tr>
+
+                            <td colspan="3" class="empty">
+
+                                No Designation Found
+
+                            </td>
+
+                        </tr>
+                    @endforelse
+
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
 
     </div>
-
-</body>
-
-</html>
+@endsection
