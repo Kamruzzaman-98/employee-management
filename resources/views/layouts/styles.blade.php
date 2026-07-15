@@ -69,8 +69,6 @@
 
     }
 
-    /* Sidebar */
-
     .sidebar {
 
         width: 260px;
@@ -661,5 +659,23 @@
 
     .update-btn {
         background: #f59e0b;
+    }
+
+    .status {
+        padding: 5px 12px;
+        border-radius: 20px;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+
+    .status.active {
+        background: #16a34a;
+    }
+
+
+    .status.inactive {
+        background: #dc2626;
     }
 </style>
