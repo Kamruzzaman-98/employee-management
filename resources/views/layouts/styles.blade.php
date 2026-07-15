@@ -831,4 +831,24 @@
     .action-btn.view {
         background: #16a34a;
     }
+
+    .req {
+        color: #dc2626;
+    }
+
+
+    .form-group input[type="file"] {
+        background: #fff;
+    }
+
+
+    .row {
+        display: flex;
+        gap: 15px;
+    }
+
+
+    .row .form-group {
+        flex: 1;
+    }
 </style>
