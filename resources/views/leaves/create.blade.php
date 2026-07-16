@@ -1,147 +1,135 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Apply Leave</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+        <!-- Header -->
+        <div class="card-header">
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 700px;
-            margin: auto;
-        }
+            <div>
+                <h3>Apply Leave</h3>
+            </div>
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: none;
-            height: 100px;
-        }
-
-        .btn {
-            padding: 10px 18px;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .save-btn {
-            background: #28a745;
-        }
-
-        .save-btn:hover {
-            background: #218838;
-        }
-
-        .back-btn {
-            background: #6c757d;
-            text-decoration: none;
-            display: inline-block;
-            margin-left: 10px;
-        }
-
-        .back-btn:hover {
-            background: #5a6268;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="top-bar">
-            <h2>Apply Leave</h2>
         </div>
 
-        <form action="{{ route('leaves.store') }}" method="POST">
+        <!-- Form -->
+        <div class="form-wrapper">
 
-            @csrf
+            <form action="{{ route('leaves.store') }}" method="POST">
 
-            <div class="form-group">
-                <label>Employee</label>
+                @csrf
 
-                <input type="text" class="form-control" value="{{ $employee->user->name }}" disabled>
+                <!-- Employee -->
+                <div class="form-group">
 
-                <input type="hidden" name="employee_id" value="{{ $employee->id }}">
-            </div>
+                    <label>
+                        Employee
+                    </label>
 
-            <div class="form-group">
-                <label>Leave Type</label>
+                    <input type="text" value="{{ $employee->user->name }}" disabled>
 
-                <select name="leave_type_id">
-                    @foreach ($leaveTypes as $type)
-                        <option value="{{ $type->id }}">
-                            {{ $type->name }}
+                    <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+
+                </div>
+
+                <!-- Leave Type -->
+                <div class="form-group">
+
+                    <label>
+                        Leave Type
+                    </label>
+
+                    <select name="leave_type_id">
+
+                        <option value="">
+                            Select Leave Type
                         </option>
-                    @endforeach
-                </select>
-            </div>
 
-            <div class="form-group">
-                <label>From Date</label>
-                <input type="date" name="from_date">
-            </div>
+                        @foreach ($leaveTypes as $type)
+                            <option value="{{ $type->id }}" {{ old('leave_type_id') == $type->id ? 'selected' : '' }}>
 
-            <div class="form-group">
-                <label>To Date</label>
-                <input type="date" name="to_date">
-            </div>
+                                {{ $type->name }}
 
-            <div class="form-group">
-                <label>Reason</label>
-                <textarea name="reason"></textarea>
-            </div>
+                            </option>
+                        @endforeach
 
-            <button type="submit" class="btn save-btn">
-                Save
-            </button>
+                    </select>
 
-            <a href="{{ route('leaves.index') }}" class="btn back-btn">
-                Back
-            </a>
+                    @error('leave_type_id')
+                        <div class="error">
+                            {{ $message }}
+                        </div>
+                    @enderror
 
-        </form>
+                </div>
+
+                <!-- From Date -->
+                <div class="form-group">
+
+                    <label>
+                        From Date
+                    </label>
+
+                    <input type="date" name="from_date" value="{{ old('from_date') }}">
+
+                    @error('from_date')
+                        <div class="error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+
+                <!-- To Date -->
+                <div class="form-group">
+
+                    <label>
+                        To Date
+                    </label>
+
+                    <input type="date" name="to_date" value="{{ old('to_date') }}">
+
+                    @error('to_date')
+                        <div class="error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+
+                <!-- Reason -->
+                <div class="form-group">
+
+                    <label>
+                        Reason
+                    </label>
+
+                    <textarea name="reason" rows="4" placeholder="Write your reason...">{{ old('reason') }}</textarea>
+
+                    @error('reason')
+                        <div class="error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+
+                    <button type="submit" class="btn save-btn">
+                        Save Leave
+                    </button>
+
+                    <a href="{{ route('leaves.index') }}" class="btn back-btn">
+                        Back
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection
