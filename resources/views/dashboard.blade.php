@@ -19,21 +19,6 @@
         </div>
 
 
-
-        <div>
-
-            <div class="user-btn">
-
-                <i class="fa fa-user"></i>
-
-                {{ auth()->user()->name ?? 'Admin' }}
-
-            </div>
-
-
-        </div>
-
-
     </div>
 
 
