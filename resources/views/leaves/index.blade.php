@@ -1,240 +1,152 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Leave List</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+        <!-- Header -->
+        <div class="card-header">
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
+            <div>
+                <h3>Leave Management</h3>
+            </div>
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background: #333;
-            color: white;
-        }
-
-        .btn {
-            padding: 8px 14px;
-            text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-block;
-        }
-
-        .add-btn {
-            background: #28a745;
-        }
-
-        .add-btn:hover {
-            background: #218838;
-        }
-
-        .view-btn {
-            background: #17a2b8;
-        }
-
-        .view-btn:hover {
-            background: #138496;
-        }
-
-        .edit-btn {
-            background: #ff9800;
-        }
-
-        .edit-btn:hover {
-            background: #e68900;
-        }
-
-        .delete-btn {
-            background: #dc3545;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-        }
-
-        .success {
-            background: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 5px;
-        }
-
-        .badge {
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: white;
-            font-size: 13px;
-        }
-
-        .pending {
-            background: orange;
-        }
-
-        .approved {
-            background: green;
-        }
-
-        .rejected {
-            background: red;
-        }
-
-        .pagination {
-            margin-top: 20px;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="top-bar">
-            <h2>Leave List</h2>
-
-            <a href="{{ route('leaves.create') }}" class="btn add-btn">
-                + Apply Leave
+            <a href="{{ route('leaves.create') }}" class="add-btn">
+                + Add Leave
             </a>
+
         </div>
 
         @if (session('success'))
-            <div class="success">
+            <div class="success-message">
                 {{ session('success') }}
             </div>
         @endif
 
-        <table>
+        <!-- Table -->
+        <div class="table-wrapper">
 
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Employee</th>
-                    <th>Leave Type</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Total Days</th>
-                    <th>Status</th>
-                    <th width="220">Action</th>
-                </tr>
-            </thead>
+            <table class="custom-table">
 
-            <tbody>
-
-                @forelse($leaves as $leave)
+                <thead>
                     <tr>
+                        <th width="80">#</th>
+                        <th>Employee</th>
+                        <th>Leave Type</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Total Days</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th width="220">Action</th>
+                    </tr>
+                </thead>
 
-                        <td>{{ $loop->iteration }}</td>
+                <tbody>
 
-                        <td>{{ $leave->employee->user->name }}</td>
+                    @forelse($leaves as $leave)
+                        <tr>
 
-                        <td>{{ $leave->leaveType->name }}</td>
+                            <td>
+                                {{ $loop->iteration }}
+                            </td>
 
-                        <td>{{ $leave->from_date }}</td>
+                            <td>
+                                <div class="department-name">
 
-                        <td>{{ $leave->to_date }}</td>
+                                    <div class="icon">
+                                        👤
+                                    </div>
 
-                        <td>{{ $leave->total_days }}</td>
+                                    <span>
+                                        {{ $leave->employee->user->name ?? 'N/A' }}
+                                    </span>
 
-                        <td>
+                                </div>
+                            </td>
 
-                            @if ($leave->status == 'pending')
-                                <span class="badge pending">Pending</span>
-                            @elseif($leave->status == 'approved')
-                                <span class="badge approved">Approved</span>
-                            @else
-                                <span class="badge rejected">Rejected</span>
-                            @endif
+                            <td>
+                                {{ $leave->leavetype->name }}
+                            </td>
 
-                        </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($leave->from_date)->format('d M, Y') }}
+                            </td>
 
-                        <td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($leave->to_date)->format('d M, Y') }}
+                            </td>
 
-                            <a href="{{ route('leaves.show', $leave) }}" class="btn view-btn">
-                                View
-                            </a>
+                            <td>
+                                {{ $leave->total_days }}
+                            </td>
 
-                            @if ($leave->status == 'pending')
-                                <a href="{{ route('leaves.edit', $leave) }}" class="btn edit-btn">
-                                    Edit
+                            <td>
+                                {{ $leave->reason }}
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="status
+                                @if ($leave->status == 'approved') active
+                                @elseif($leave->status == 'pending')
+                                    pending
+                                @else
+                                    inactive @endif">
+
+                                    {{ ucfirst($leave->status) }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a href="{{ route('leaves.show', $leave->id) }}" class="action-btn view">
+                                    👁 View
                                 </a>
 
-                                <form action="{{ route('leaves.destroy', $leave) }}" method="POST"
+                                <a href="{{ route('leaves.edit', $leave->id) }}" class="action-btn edit">
+                                    ✏ Edit
+                                </a>
+
+                                <form action="{{ route('leaves.destroy', $leave->id) }}" method="POST"
                                     style="display:inline;">
+
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn delete-btn"
-                                        onclick="return confirm('Are you sure?')">
-                                        Delete
+                                    <button class="action-btn delete"
+                                        onclick="return confirm('Are you sure you want to delete this leave?')">
+
+                                        🗑 Delete
+
                                     </button>
+
                                 </form>
-                            @endif
 
-                            </form>
+                            </td>
 
-                        </td>
+                        </tr>
 
-                    </tr>
+                    @empty
 
-                @empty
+                        <tr>
+                            <td colspan="9" class="empty">
+                                No Leave Found
+                            </td>
+                        </tr>
+                    @endforelse
 
-                    <tr>
-                        <td colspan="8">
-                            No Leave Records Found.
-                        </td>
-                    </tr>
-                @endforelse
+                </tbody>
 
-            </tbody>
+            </table>
 
-        </table>
+        </div>
 
-        <div class="pagination">
+        <div style="margin-top:20px;">
             {{ $leaves->links() }}
         </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection

@@ -1060,4 +1060,27 @@
     .text-muted {
         color: #6b7280;
     }
+
+    .success-message {
+        margin: 15px 20px;
+        padding: 12px 15px;
+        background: #d4edda;
+        color: #155724;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+    }
+
+    .status.pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .action-btn.view {
+        background: #17a2b8;
+        color: #fff;
+    }
+
+    .action-btn.view:hover {
+        background: #138496;
+    }
 </style>
