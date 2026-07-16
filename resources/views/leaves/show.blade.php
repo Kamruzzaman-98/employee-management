@@ -1,161 +1,163 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Leave Details</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+        <!-- Header -->
+        <div class="card-header">
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, .1);
-        }
+            <div>
+                <h3>Leave Details</h3>
+            </div>
 
-        h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+            <a href="{{ route('leaves.index') }}" class="back-btn btn">
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+                ← Back to List
 
-        table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-        }
+            </a>
 
-        table td:first-child {
-            width: 220px;
-            font-weight: bold;
-            background: #f8f9fa;
-        }
+        </div>
 
-        .badge {
-            padding: 6px 12px;
-            border-radius: 5px;
-            color: #fff;
-        }
+        <!-- Details -->
+        <div class="details-wrapper">
 
-        .pending {
-            background: orange;
-        }
+            <table class="details-table">
 
-        .approved {
-            background: green;
-        }
+                <tr>
 
-        .rejected {
-            background: red;
-        }
+                    <td>
+                        Employee Name
+                    </td>
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 18px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+                    <td>
+                        {{ $leave->employee->user->name }}
+                    </td>
 
-        .btn:hover {
-            background: #0056b3;
-        }
-    </style>
+                </tr>
 
-</head>
+                <tr>
 
-<body>
+                    <td>
+                        Leave Type
+                    </td>
 
-    <div class="container">
+                    <td>
+                        {{ $leave->leaveType->name }}
+                    </td>
 
-        <h2>Leave Details</h2>
+                </tr>
 
-        <table>
+                <tr>
 
-            <tr>
-                <td>Employee Name</td>
-                <td>{{ $leave->employee->user->name }}</td>
-            </tr>
+                    <td>
+                        From Date
+                    </td>
 
-            <tr>
-                <td>Leave Type</td>
-                <td>{{ $leave->leaveType->name }}</td>
-            </tr>
+                    <td>
+                        {{ \Carbon\Carbon::parse($leave->from_date)->format('d M Y') }}
+                    </td>
 
-            <tr>
-                <td>From Date</td>
-                <td>{{ $leave->from_date }}</td>
-            </tr>
+                </tr>
 
-            <tr>
-                <td>To Date</td>
-                <td>{{ $leave->to_date }}</td>
-            </tr>
+                <tr>
 
-            <tr>
-                <td>Total Days</td>
-                <td>{{ $leave->total_days }}</td>
-            </tr>
+                    <td>
+                        To Date
+                    </td>
 
-            <tr>
-                <td>Reason</td>
-                <td>{{ $leave->reason }}</td>
-            </tr>
+                    <td>
+                        {{ \Carbon\Carbon::parse($leave->to_date)->format('d M Y') }}
+                    </td>
 
-            <tr>
-                <td>Status</td>
-                <td>
-                    @if ($leave->status == 'pending')
-                        <span class="badge pending">Pending</span>
-                    @elseif($leave->status == 'approved')
-                        <span class="badge approved">Approved</span>
-                    @else
-                        <span class="badge rejected">Rejected</span>
-                    @endif
-                </td>
-            </tr>
+                </tr>
 
-            <tr>
-                <td>Approved By</td>
-                <td>
-                    @if ($leave->approver)
-                        {{ $leave->approver->name }}
-                    @else
-                        N/A
-                    @endif
-                </td>
-            </tr>
+                <tr>
 
-            <tr>
-                <td>Applied At</td>
-                <td>{{ $leave->created_at->format('d M Y h:i A') }}</td>
-            </tr>
+                    <td>
+                        Total Days
+                    </td>
 
-            <tr>
-                <td>Approved At</td>
-                <td>{{ \Carbon\Carbon::parse($leave->created_at)->format('d M Y h:i A') }}</td>
-            </tr>
+                    <td>
+                        {{ $leave->total_days }}
+                    </td>
 
-        </table>
+                </tr>
 
-        <a href="{{ route('leaves.index') }}" class="btn">
-            ← Back to List
-        </a>
+                <tr>
+
+                    <td>
+                        Reason
+                    </td>
+
+                    <td>
+                        {!! nl2br(e($leave->reason)) !!}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Status
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="status
+                        @if ($leave->status == 'approved') active
+                        @elseif($leave->status == 'pending')
+                            pending
+                        @else
+                            inactive @endif">
+
+                            {{ ucfirst($leave->status) }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Approved By
+                    </td>
+
+                    <td>
+                        {{ $leave->approver->name ?? 'N/A' }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Applied At
+                    </td>
+
+                    <td>
+                        {{ $leave->created_at->format('d M Y h:i A') }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Approved At
+                    </td>
+
+                    <td>
+                        {{ $leave->updated_at ? $leave->updated_at->format('d M Y h:i A') : 'N/A' }}
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection
