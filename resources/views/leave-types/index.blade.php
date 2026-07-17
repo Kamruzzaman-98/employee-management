@@ -1,204 +1,127 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Leave Types</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+        <!-- Header -->
+        <div class="card-header">
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
+            <div>
+                <h3>Leave Types Management</h3>
+            </div>
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background: #333;
-            color: white;
-        }
-
-        .btn {
-            padding: 8px 14px;
-            text-decoration: none;
-            border-radius: 5px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-block;
-        }
-
-        .add-btn {
-            background: #28a745;
-        }
-
-        .add-btn:hover {
-            background: #218838;
-        }
-
-        .view-btn {
-            background: #17a2b8;
-        }
-
-        .view-btn:hover {
-            background: #138496;
-        }
-
-        .edit-btn {
-            background: #ff9800;
-        }
-
-        .edit-btn:hover {
-            background: #e68900;
-        }
-
-        .delete-btn {
-            background: #dc3545;
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-        }
-
-        .success {
-            background: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 5px;
-        }
-
-        .pagination {
-            margin-top: 20px;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="top-bar">
-            <h2>Leave Types</h2>
-
-            <a href="{{ route('leave-types.create') }}" class="btn add-btn">
+            <a href="{{ route('leave-types.create') }}" class="add-btn">
                 + Add Leave Type
             </a>
+
         </div>
 
         @if (session('success'))
-            <div class="success">
+            <div class="success-message">
                 {{ session('success') }}
             </div>
         @endif
 
-        <table>
+        <!-- Table -->
+        <div class="table-wrapper">
 
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Max Days</th>
-                    <th>Paid</th>
-                    <th>Status</th>
-                    <th width="220">Action</th>
-                </tr>
-            </thead>
+            <table class="custom-table">
 
-            <tbody>
-
-                @forelse($leaveTypes as $leave)
+                <thead>
                     <tr>
-
-                        <td>{{ $loop->iteration }}</td>
-
-                        <td>{{ $leave->name }}</td>
-
-                        <td>{{ $leave->max_days }}</td>
-
-                        <td>{{ $leave->is_paid ? 'Paid' : 'Unpaid' }}</td>
-
-                        <td>{{ $leave->status ? 'Active' : 'Inactive' }}</td>
-
-                        <td>
-
-                            <a href="{{ route('leave-types.show', $leave->id) }}" class="btn view-btn">
-                                View
-                            </a>
-
-                            <a href="{{ route('leave-types.edit', $leave->id) }}" class="btn edit-btn">
-                                Edit
-                            </a>
-
-                            <form action="{{ route('leave-types.destroy', $leave->id) }}" method="POST"
-                                style="display:inline;">
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn delete-btn" onclick="return confirm('Are you sure?')">
-
-                                    Delete
-
-                                </button>
-
-                            </form>
-
-                        </td>
-
+                        <th width="60">#</th>
+                        <th>Leave Type</th>
+                        <th>Max Days</th>
+                        <th>Paid</th>
+                        <th>Status</th>
+                        <th width="250">Action</th>
                     </tr>
+                </thead>
 
-                @empty
+                <tbody>
 
-                    <tr>
-                        <td colspan="6">
-                            No Leave Types Found.
-                        </td>
-                    </tr>
-                @endforelse
+                    @forelse($leaveTypes as $leave)
+                        <tr>
 
-            </tbody>
+                            <td>
+                                {{ $loop->iteration }}
+                            </td>
 
-        </table>
+                            <td>
+                                <div class="department-name">
 
-        <div class="pagination">
+                                    <div class="icon">
+                                        📝
+                                    </div>
+
+                                    <span>
+                                        <strong>{{ $leave->name }}</strong>
+                                    </span>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                {{ $leave->max_days }}
+                            </td>
+
+                            <td>
+                                <span class="status {{ $leave->is_paid ? 'active' : 'inactive' }}">
+                                    {{ $leave->is_paid ? 'Paid' : 'Unpaid' }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="status {{ $leave->status ? 'active' : 'inactive' }}">
+                                    {{ $leave->status ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <a href="{{ route('leave-types.show', $leave->id) }}" class="action-btn view">
+                                    👁 View
+                                </a>
+
+                                <a href="{{ route('leave-types.edit', $leave->id) }}" class="action-btn edit">
+                                    ✏ Edit
+                                </a>
+
+                                <form action="{{ route('leave-types.destroy', $leave->id) }}" method="POST"
+                                    style="display:inline;">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="action-btn delete"
+                                        onclick="return confirm('Are you sure?')">
+                                        🗑 Delete
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="6" class="empty">
+                                No Leave Types Found
+                            </td>
+                        </tr>
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="pagination-wrapper">
             {{ $leaveTypes->links() }}
         </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection

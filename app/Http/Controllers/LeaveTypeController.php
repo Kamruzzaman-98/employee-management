@@ -9,7 +9,7 @@ class LeaveTypeController extends Controller
 {
     public function index()
     {
-        $leaveTypes = LeaveType::latest();
+        $leaveTypes = LeaveType::latest()->paginate(10);
 
         return view('leave-types.index', compact('leaveTypes'));
     }

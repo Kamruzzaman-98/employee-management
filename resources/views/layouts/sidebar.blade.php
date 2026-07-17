@@ -44,6 +44,12 @@
         </li>
 
         <li>
+            <a href="{{ route('leave-types.index') }}">
+                🏖️ Leave Types
+            </a>
+        </li>
+
+        <li>
             <a href="{{ route('holidays.index') }}">
                 🎉 Holidays
             </a>
