@@ -79,9 +79,9 @@
 
                             <td>
 
-                                <a href="{{ route('leave-types.show', $leave->id) }}" class="action-btn view">
+                                {{-- <a href="{{ route('leave-types.show', $leave->id) }}" class="action-btn view">
                                     👁 View
-                                </a>
+                                </a> --}}
 
                                 <a href="{{ route('leave-types.edit', $leave->id) }}" class="action-btn edit">
                                     ✏ Edit
