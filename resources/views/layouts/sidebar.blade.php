@@ -31,11 +31,11 @@
             </a>
         </li>
 
-        {{-- <li>
-            <a href="{{ route('attendances.index') }}">
+        <li>
+            <a href="{{ route('attendance.index') }}">
                 🕒 Attendance
             </a>
-        </li> --}}
+        </li>
 
         <li>
             <a href="{{ route('leaves.index') }}">
