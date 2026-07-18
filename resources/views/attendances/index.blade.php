@@ -10,6 +10,12 @@
                 <h3>Attendance History</h3>
             </div>
 
+            <a href="{{ route('attendance.create') }}" class="add-btn">
+
+                + Create Attendance
+
+            </a>
+
         </div>
 
         <!-- Table -->
