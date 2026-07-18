@@ -31,6 +31,21 @@
 
     </div>
 
+
+    <script>
+        document.querySelectorAll('.has-submenu > a').forEach(function(menu) {
+
+            menu.addEventListener('click', function(e) {
+
+                e.preventDefault();
+
+                this.parentElement.classList.toggle('active');
+
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>

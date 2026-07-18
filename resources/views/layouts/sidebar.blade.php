@@ -37,16 +37,28 @@
             </a>
         </li>
 
-        <li>
-            <a href="{{ route('leaves.index') }}">
-                🍃 Leave Management
-            </a>
-        </li>
+        <li class="has-submenu">
 
-        <li>
-            <a href="{{ route('leave-types.index') }}">
-                🏖️ Leave Types
+            <a href="#">
+                🍃 Leave Management ▼
             </a>
+
+            <ul class="submenu">
+
+                <li>
+                    <a href="{{ route('leaves.index') }}">
+                        Leave List
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('leave-types.index') }}">
+                        Leave Types
+                    </a>
+                </li>
+
+            </ul>
+
         </li>
 
         <li>

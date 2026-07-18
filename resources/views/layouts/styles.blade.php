@@ -1093,4 +1093,20 @@
         background: #6f42c1;
         color: #fff;
     }
+
+    .has-submenu .submenu {
+        list-style: none;
+        padding-left: 20px;
+        display: none;
+    }
+
+    .has-submenu.active .submenu {
+        display: block;
+    }
+
+    .has-submenu>a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
