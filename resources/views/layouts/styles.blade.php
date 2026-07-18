@@ -1083,4 +1083,14 @@
     .action-btn.view:hover {
         background: #138496;
     }
+
+    .status.late {
+        background: #fd7e14;
+        color: #fff;
+    }
+
+    .status.leave {
+        background: #6f42c1;
+        color: #fff;
+    }
 </style>
