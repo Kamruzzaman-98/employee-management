@@ -1,198 +1,169 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Leave List</title>
+@section('content')
+    <div class="card">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+        <!-- Header -->
+        <div class="card-header">
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
+            <div>
+                <h3>Leave Requests</h3>
+            </div>
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background: #333;
-            color: #fff;
-        }
-
-        .btn {
-            padding: 8px 14px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-block;
-        }
-
-        .approve-btn {
-            background: #28a745;
-        }
-
-        .approve-btn:hover {
-            background: #218838;
-        }
-
-        .reject-btn {
-            background: #dc3545;
-        }
-
-        .reject-btn:hover {
-            background: #c82333;
-        }
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            color: white;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .pending {
-            background: orange;
-        }
-
-        .approved {
-            background: green;
-        }
-
-        .rejected {
-            background: red;
-        }
-
-        .no-action {
-            color: gray;
-            font-weight: bold;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="top-bar">
-            <h2>Leave Requests</h2>
         </div>
 
-        <table>
 
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Employee</th>
-                    <th>Leave Type</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Total Days</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+        <!-- Table -->
+        <div class="table-wrapper">
 
-            <tbody>
+            <table class="custom-table">
 
-                @foreach ($leaves as $leave)
+                <thead>
                     <tr>
-                        <td>{{ $leave->employee->employee_code }}</td>
-
-                        <td>{{ $leave->employee->user->name }}</td>
-
-                        <td>{{ $leave->leaveType->name }}</td>
-
-                        <td>{{ $leave->from_date }}</td>
-
-                        <td>{{ $leave->to_date }}</td>
-
-                        <td>{{ $leave->total_days }}</td>
-
-                        <td>
-                            <span
-                                class="status
-                            @if ($leave->status == 'pending') pending
-                            @elseif($leave->status == 'approved') approved
-                            @else rejected @endif">
-
-                                {{ $leave->status }}
-
-                            </span>
-                        </td>
-
-                        <td>
-
-                            @if ($leave->status == 'pending')
-                                <form action="{{ route('leave.approve', $leave->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <button class="btn approve-btn">
-                                        Approve
-                                    </button>
-
-                                </form>
-
-                                <form action="{{ route('leave.reject', $leave->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <button class="btn reject-btn">
-                                        Reject
-                                    </button>
-
-                                </form>
-                            @else
-                                <span class="no-action">
-                                    No Action
-                                </span>
-                            @endif
-
-                        </td>
-
+                        <th width="80">#</th>
+                        <th>Code</th>
+                        <th>Employee</th>
+                        <th>Leave Type</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Total Days</th>
+                        <th>Status</th>
+                        <th width="220">Action</th>
                     </tr>
-                @endforeach
+                </thead>
 
-            </tbody>
 
-        </table>
+                <tbody>
+
+                    @forelse($leaves as $leave)
+                        <tr>
+
+                            <td>
+                                {{ $loop->iteration }}
+                            </td>
+
+
+                            <td>
+                                {{ $leave->employee->employee_code ?? 'N/A' }}
+                            </td>
+
+
+                            <td>
+
+                                <div class="department-name">
+
+                                    <div class="icon">
+                                        👤
+                                    </div>
+
+                                    <span>
+                                        {{ $leave->employee->user->name ?? 'N/A' }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <td>
+                                {{ $leave->leaveType->name ?? 'N/A' }}
+                            </td>
+
+
+                            <td>
+                                {{ \Carbon\Carbon::parse($leave->from_date)->format('d M, Y') }}
+                            </td>
+
+
+                            <td>
+                                {{ \Carbon\Carbon::parse($leave->to_date)->format('d M, Y') }}
+                            </td>
+
+
+                            <td>
+                                {{ $leave->total_days }}
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="status
+                                @if ($leave->status == 'approved') active
+                                @elseif($leave->status == 'pending')
+                                    pending
+                                @else
+                                    inactive @endif">
+
+                                    {{ ucfirst($leave->status) }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+
+                                @if ($leave->status == 'pending')
+                                    <form action="{{ route('leave.approve', $leave->id) }}" method="POST"
+                                        style="display:inline;">
+
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button class="action-btn view">
+                                            ✔ Approve
+                                        </button>
+
+                                    </form>
+
+
+
+                                    <form action="{{ route('leave.reject', $leave->id) }}" method="POST"
+                                        style="display:inline;">
+
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button class="action-btn delete">
+                                            ✖ Reject
+                                        </button>
+
+                                    </form>
+                                @else
+                                    <span class="no-action">
+                                        No Action
+                                    </span>
+                                @endif
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="9" class="empty">
+                                No Leave Request Found
+                            </td>
+
+                        </tr>
+                    @endforelse
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
 
     </div>
-
-</body>
-
-</html>
+@endsection
