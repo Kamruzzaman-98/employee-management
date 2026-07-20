@@ -46,6 +46,12 @@
             <ul class="submenu">
 
                 <li>
+                    <a href="{{ route('leave.index') }}">
+                        Leave Request
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('leaves.index') }}">
                         Leave List
                     </a>
