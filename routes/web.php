@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('permissions', PermissionController::class);
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('permission:dashboard-view')->name('dashboard');
 });
 
 Route::middleware(['role:HR'])->prefix('hr')->group(function () {

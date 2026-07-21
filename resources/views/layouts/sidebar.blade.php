@@ -6,18 +6,21 @@
     </div>
 
     <ul class="menu">
+        @can('dashboard-view')
+            <li>
+                <a href="{{ route('dashboard') }}">
+                    🏠 Dashboard
+                </a>
+            </li>
+        @endcan
 
-        <li>
-            <a href="{{ route('dashboard') }}">
-                🏠 Dashboard
-            </a>
-        </li>
-
-        <li>
-            <a href="{{ route('departments.index') }}">
-                🏢 Departments
-            </a>
-        </li>
+        @can('department-view')
+            <li>
+                <a href="{{ route('departments.index') }}">
+                    🏢 Departments
+                </a>
+            </li>
+        @endcan
 
         <li>
             <a href="{{ route('designations.index') }}">
