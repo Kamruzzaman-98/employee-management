@@ -22,11 +22,13 @@
             </li>
         @endcan
 
-        <li>
-            <a href="{{ route('designations.index') }}">
-                💼 Designations
-            </a>
-        </li>
+        @can('designation-view')
+            <li>
+                <a href="{{ route('designations.index') }}">
+                    💼 Designations
+                </a>
+            </li>
+        @endcan
 
         <li>
             <a href="{{ route('employees.index') }}">
