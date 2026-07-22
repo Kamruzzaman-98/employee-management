@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('departments', DepartmentController::class)->middleware('permission:department-view');
-Route::resource('employees', EmployeeController::class);
+Route::resource('employees', EmployeeController::class)->middleware('permission:employee-view');
 
 Route::get('/employees/{id}/profile', [EmployeeController::class, 'profile'])->name('employees.profile');
 

@@ -30,11 +30,13 @@
             </li>
         @endcan
 
-        <li>
-            <a href="{{ route('employees.index') }}">
-                👨‍💼 Employees
-            </a>
-        </li>
+        @can('employee-view')
+            <li>
+                <a href="{{ route('employees.index') }}">
+                    👨‍💼 Employees
+                </a>
+            </li>
+        @endcan
 
         <li>
             <a href="{{ route('attendance.index') }}">
