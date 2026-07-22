@@ -73,7 +73,7 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
 
     Route::resource('holidays', HolidayController::class);
 
-    Route::resource('notices', NoticeController::class);
+    Route::resource('notices', NoticeController::class)->middleware('permission:notice-view');
 });
 
 

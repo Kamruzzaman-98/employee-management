@@ -80,11 +80,13 @@
             </a>
         </li>
 
-        <li>
-            <a href="{{ route('notices.index') }}">
-                📢 Notice Board
-            </a>
-        </li>
+        @can('notice-view')
+            <li>
+                <a href="{{ route('notices.index') }}">
+                    📢 Notice Board
+                </a>
+            </li>
+        @endcan
 
         {{-- <li>
             <a href="{{ route('payrolls.index') }}">
