@@ -71,7 +71,7 @@ Route::middleware(['role:HR'])->prefix('hr')->group(function () {
     Route::put('/leave/{leave}/reject', [LeaveController::class, 'reject'])
         ->name('leave.reject');
 
-    Route::resource('holidays', HolidayController::class);
+    Route::resource('holidays', HolidayController::class)->middleware('permission:holiday-view');
 
     Route::resource('notices', NoticeController::class)->middleware('permission:notice-view');
 });
