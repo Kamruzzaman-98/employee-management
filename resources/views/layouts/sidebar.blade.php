@@ -74,11 +74,13 @@
 
         </li>
 
-        <li>
-            <a href="{{ route('holidays.index') }}">
-                🎉 Holidays
-            </a>
-        </li>
+        @can('holiday-view')
+            <li>
+                <a href="{{ route('holidays.index') }}">
+                    🎉 Holidays
+                </a>
+            </li>
+        @endcan
 
         @can('notice-view')
             <li>
