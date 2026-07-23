@@ -37,7 +37,7 @@ Route::middleware(['auth'])->get('/my-profile', [EmployeeController::class, 'myP
 
 Route::resource('designations', DesignationController::class);
 Route::resource('leave-types', LeaveTypeController::class);
-Route::resource('leaves', LeaveController::class);
+Route::resource('leaves', LeaveController::class)->middleware('permission:leave-view');
 
 Route::middleware('auth')->group(function () {
 
