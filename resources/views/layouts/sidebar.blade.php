@@ -44,35 +44,37 @@
             </a>
         </li>
 
-        <li class="has-submenu">
+        @can('leave-view')
+            <li class="has-submenu">
 
-            <a href="#">
-                🍃 Leave Management ▼
-            </a>
+                <a href="#">
+                    🍃 Leave Management ▼
+                </a>
 
-            <ul class="submenu">
+                <ul class="submenu">
 
-                <li>
-                    <a href="{{ route('leave.index') }}">
-                        Leave Request
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('leave.index') }}">
+                            Leave Request
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('leaves.index') }}">
-                        Leave List
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('leaves.index') }}">
+                            Leave List
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('leave-types.index') }}">
-                        Leave Types
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('leave-types.index') }}">
+                            Leave Types
+                        </a>
+                    </li>
 
-            </ul>
+                </ul>
 
-        </li>
+            </li>
+        @endcan
 
         @can('holiday-view')
             <li>
