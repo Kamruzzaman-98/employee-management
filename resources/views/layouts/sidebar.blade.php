@@ -92,6 +92,30 @@
             </li>
         @endcan
 
+        <li class="has-submenu">
+
+            <a href="#">
+                🔐 Access Control ▼
+            </a>
+
+            <ul class="submenu">
+
+                <li>
+                    <a href="">
+                        Roles
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        Permissions
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+
         {{-- <li>
             <a href="{{ route('payrolls.index') }}">
                 💰 Payroll
