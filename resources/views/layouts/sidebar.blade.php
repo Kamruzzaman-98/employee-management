@@ -101,7 +101,7 @@
             <ul class="submenu">
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('roles.index') }}">
                         Roles
                     </a>
                 </li>
