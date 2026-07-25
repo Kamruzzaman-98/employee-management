@@ -1,203 +1,102 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
+@section('content')
+    <div class="card">
 
-    <title>Permission List</title>
+        <!-- Header -->
+        <div class="card-header">
 
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+            <div>
+                <h3>Permission Management</h3>
+            </div>
 
+            <a href="{{ route('permissions.create') }}" class="add-btn">
+                + Add Permission
+            </a>
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-
-        .btn {
-            padding: 8px 14px;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            border: none;
-        }
-
-
-        .add {
-            background: #28a745;
-        }
-
-
-        .edit {
-            background: #ff9800;
-        }
-
-
-        .delete {
-            background: #dc3545;
-        }
-
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
-
-
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-        }
-
-
-        th {
-            background: #333;
-            color: white;
-        }
-
-
-        .alert {
-            background: #d4edda;
-            padding: 10px;
-            margin-top: 10px;
-            color: #155724;
-        }
-    </style>
-
-</head>
-
-
-<body>
-
-
-    <div class="container">
-
-
-        <h2>
-            Permission List
-        </h2>
-
-
-        <a href="{{ route('permissions.create') }}" class="btn add">
-            + Add Permission
-        </a>
-
-
+        </div>
 
         @if (session('success'))
-            <div class="alert">
+            <div class="success-message">
                 {{ session('success') }}
             </div>
         @endif
 
+        <!-- Table -->
+        <div class="table-wrapper">
 
+            <table class="custom-table">
 
-        <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Permission Name</th>
+                        <th>Guard</th>
+                        <th>Created Date</th>
+                        <th width="180">Action</th>
+                    </tr>
+                </thead>
 
+                <tbody>
 
-            <tr>
+                    @forelse ($permissions as $permission)
+                        <tr>
 
-                <th>ID</th>
+                            <td>{{ $permission->id }}</td>
 
-                <th>Name</th>
+                            <td>
+                                <div class="department-name">
+                                    <div class="icon">
+                                        🔑
+                                    </div>
 
-                <th>Guard</th>
+                                    <span>
+                                        {{ $permission->name }}
+                                    </span>
+                                </div>
+                            </td>
 
-                <th>Date</th>
+                            <td>{{ $permission->guard_name }}</td>
 
-                <th>Action</th>
+                            <td>{{ $permission->created_at->format('d-m-Y') }}</td>
 
-            </tr>
+                            <td>
 
+                                <a href="{{ route('permissions.edit', $permission->id) }}" class="action-btn edit">
+                                    ✏ Edit
+                                </a>
 
+                                <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
+                                    style="display:inline;">
 
-            @forelse($permissions as $permission)
-                <tr>
+                                    @csrf
+                                    @method('DELETE')
 
-                    <td>{{ $permission->id }}</td>
+                                    <button type="submit" class="action-btn delete"
+                                        onclick="return confirm('Delete permission?')">
+                                        🗑 Delete
+                                    </button>
 
+                                </form>
 
-                    <td>{{ $permission->name }}</td>
+                            </td>
 
+                        </tr>
 
-                    <td>{{ $permission->guard_name }}</td>
+                    @empty
 
+                        <tr>
+                            <td colspan="5" class="empty">
+                                No Permission Found
+                            </td>
+                        </tr>
+                    @endforelse
 
-                    <td>
-                        {{ $permission->created_at->format('d-m-Y') }}
-                    </td>
+                </tbody>
 
+            </table>
 
-
-                    <td>
-
-
-                        <a href="{{ route('permissions.edit', $permission->id) }}" class="btn edit">
-                            Edit
-                        </a>
-
-
-
-                        <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
-                            style="display:inline">
-
-                            @csrf
-                            @method('DELETE')
-
-
-                            <button class="btn delete" onclick="return confirm('Delete permission?')">
-
-                                Delete
-
-                            </button>
-
-
-                        </form>
-
-
-                    </td>
-
-
-                </tr>
-
-
-            @empty
-
-
-                <tr>
-
-                    <td colspan="5">
-                        No Permission Found
-                    </td>
-
-                </tr>
-            @endforelse
-
-
-
-        </table>
-
-
+        </div>
 
     </div>
-
-
-</body>
-
-
-</html>
+@endsection

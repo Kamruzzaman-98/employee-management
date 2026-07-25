@@ -1149,4 +1149,13 @@
             grid-template-columns: 1fr;
         }
     }
+
+    .success-message {
+        margin: 20px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        background: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+    }
 </style>
