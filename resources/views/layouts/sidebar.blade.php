@@ -107,7 +107,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('permissions.index') }}">
                         Permissions
                     </a>
                 </li>
