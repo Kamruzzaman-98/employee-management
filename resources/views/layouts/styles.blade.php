@@ -1109,4 +1109,44 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    .permission-box {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .permission-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f8fafc;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .permission-item:hover {
+        background: #eef4ff;
+        border-color: #2563eb;
+    }
+
+    .permission-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .permission-name {
+        font-size: 15px;
+        color: #374151;
+    }
+
+    @media (max-width: 768px) {
+        .permission-box {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
