@@ -11,12 +11,13 @@
                 <h3>Department Management</h3>
             </div>
 
+            @can('department-create')
+                <a href="{{ route('departments.create') }}" class="add-btn">
 
-            <a href="{{ route('departments.create') }}" class="add-btn">
+                    + Add Department
 
-                + Add Department
-
-            </a>
+                </a>
+            @endcan
 
 
         </div>
