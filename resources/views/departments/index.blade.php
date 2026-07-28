@@ -85,12 +85,13 @@
 
                             <td>
 
-
+                            @can('department-edit')
                                 <a href="{{ route('departments.edit', $department->id) }}" class="action-btn edit">
 
                                     ✏ Edit
 
                                 </a>
+                            @endcan
 
 
 
