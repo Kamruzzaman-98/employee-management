@@ -85,33 +85,32 @@
 
                             <td>
 
-                            @can('department-edit')
-                                <a href="{{ route('departments.edit', $department->id) }}" class="action-btn edit">
+                                @can('department-edit')
+                                    <a href="{{ route('departments.edit', $department->id) }}" class="action-btn edit">
 
-                                    ✏ Edit
+                                        ✏ Edit
 
-                                </a>
-                            @endcan
-
-
-
-                                <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
-                                    style="display:inline;">
+                                    </a>
+                                @endcan
 
 
-                                    @csrf
-
-                                    @method('DELETE')
-
-
-                                    <button class="action-btn delete" onclick="return confirm('Are you sure?')">
-
-                                        🗑 Delete
-
-                                    </button>
+                                @can('department-delete')
+                                    <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
+                                        style="display:inline;">
 
 
-                                </form>
+                                        @csrf
+
+                                        @method('DELETE')
+
+
+                                        <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                            🗑 Delete
+
+                                        </button>
+                                    </form>
+                                @endcan
 
 
                             </td>
