@@ -40,7 +40,9 @@
 
                         <th>Department Name</th>
 
-                        <th width="200">Action</th>
+                        @canany(['department-edit', 'department-delete'])
+                            <th width="200">Action</th>
+                        @endcanany
 
                     </tr>
 
@@ -82,38 +84,39 @@
                             </td>
 
 
+                            @canany(['department-edit', 'department-delete'])
+                                <td>
 
-                            <td>
+                                    @can('department-edit')
+                                        <a href="{{ route('departments.edit', $department->id) }}" class="action-btn edit">
 
-                                @can('department-edit')
-                                    <a href="{{ route('departments.edit', $department->id) }}" class="action-btn edit">
+                                            ✏ Edit
 
-                                        ✏ Edit
-
-                                    </a>
-                                @endcan
-
-
-                                @can('department-delete')
-                                    <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
-                                        style="display:inline;">
+                                        </a>
+                                    @endcan
 
 
-                                        @csrf
-
-                                        @method('DELETE')
-
-
-                                        <button class="action-btn delete" onclick="return confirm('Are you sure?')">
-
-                                            🗑 Delete
-
-                                        </button>
-                                    </form>
-                                @endcan
+                                    @can('department-delete')
+                                        <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
+                                            style="display:inline;">
 
 
-                            </td>
+                                            @csrf
+
+                                            @method('DELETE')
+
+
+                                            <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                                🗑 Delete
+
+                                            </button>
+                                        </form>
+                                    @endcan
+
+
+                                </td>
+                            @endcanany
 
 
                         </tr>
@@ -124,11 +127,11 @@
 
                         <tr>
 
-                            <td colspan="3" class="empty">
-
-                                No Department Found
-
-                            </td>
+                            @canany(['department-edit', 'department-delete'])
+                                <td colspan="3" class="empty">No Department Found</td>
+                            @else
+                                <td colspan="2" class="empty">No Department Found</td>
+                            @endcanany
 
                         </tr>
                     @endforelse
