@@ -12,12 +12,13 @@
                 <h3>Designation Management</h3>
             </div>
 
+            @can('designation-create')
+                <a href="{{ route('designations.create') }}" class="add-btn">
 
-            <a href="{{ route('designations.create') }}" class="add-btn">
+                    + Add Designation
 
-                + Add Designation
-
-            </a>
+                </a>
+            @endcan
 
 
         </div>
