@@ -87,32 +87,34 @@
                             @canany(['designation-edit', 'designation-delete'])
                                 <td>
 
+                                    @can('designation-edit')
+                                        <a href="{{ route('designations.edit', $designation->id) }}" class="action-btn edit">
 
-                                    <a href="{{ route('designations.edit', $designation->id) }}" class="action-btn edit">
+                                            ✏ Edit
 
-                                        ✏ Edit
-
-                                    </a>
-
-
-
-                                    <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
-                                        style="display:inline;">
+                                        </a>
+                                    @endcan
 
 
-                                        @csrf
-
-                                        @method('DELETE')
-
-
-                                        <button class="action-btn delete" onclick="return confirm('Are you sure?')">
-
-                                            🗑 Delete
-
-                                        </button>
+                                    @can('designation-delete')
+                                        <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
+                                            style="display:inline;">
 
 
-                                    </form>
+                                            @csrf
+
+                                            @method('DELETE')
+
+
+                                            <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                                🗑 Delete
+
+                                            </button>
+
+
+                                        </form>
+                                    @endcan
 
 
                                 </td>
