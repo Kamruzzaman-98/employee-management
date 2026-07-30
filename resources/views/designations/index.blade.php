@@ -40,8 +40,9 @@
                         <th width="80">ID</th>
 
                         <th>Designation Name</th>
-
-                        <th width="200">Action</th>
+                        @canany(['designation-edit', 'designation-delete'])
+                            <th width="200">Action</th>
+                        @endcanany
 
                     </tr>
 
@@ -83,38 +84,39 @@
                             </td>
 
 
-
-                            <td>
-
-
-                                <a href="{{ route('designations.edit', $designation->id) }}" class="action-btn edit">
-
-                                    ✏ Edit
-
-                                </a>
+                            @canany(['designation-edit', 'designation-delete'])
+                                <td>
 
 
+                                    <a href="{{ route('designations.edit', $designation->id) }}" class="action-btn edit">
 
-                                <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
-                                    style="display:inline;">
+                                        ✏ Edit
 
-
-                                    @csrf
-
-                                    @method('DELETE')
+                                    </a>
 
 
-                                    <button class="action-btn delete" onclick="return confirm('Are you sure?')">
 
-                                        🗑 Delete
-
-                                    </button>
+                                    <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
+                                        style="display:inline;">
 
 
-                                </form>
+                                        @csrf
+
+                                        @method('DELETE')
 
 
-                            </td>
+                                        <button class="action-btn delete" onclick="return confirm('Are you sure?')">
+
+                                            🗑 Delete
+
+                                        </button>
+
+
+                                    </form>
+
+
+                                </td>
+                            @endcanany
 
 
                         </tr>
