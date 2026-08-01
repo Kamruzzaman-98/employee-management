@@ -12,12 +12,13 @@
                 <h3>Employee Management</h3>
             </div>
 
+            @can('employee-create')
+                <a href="{{ route('employees.create') }}" class="add-btn">
 
-            <a href="{{ route('employees.create') }}" class="add-btn">
+                    + Add Employee
 
-                + Add Employee
-
-            </a>
+                </a>
+            @endcan
 
 
         </div>
